@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcCertAssotypeMapper">
+
+    <!--&lt;!&ndash; 开启二级缓存 &ndash;&gt;
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcCertAssotype">
+        <id column="id" property="id" />
+        <result column="zzbh" property="zzbh" />
+        <result column="zh" property="zh" />
+        <result column="glzh" property="glzh" />
+        <result column="glzhbh" property="glzhbh" />
+        <result column="gllx" property="gllx" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, zzbh, zh, glzh, glzhbh, gllx
+    </sql>
+
+</mapper>

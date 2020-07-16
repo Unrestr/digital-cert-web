@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcRightInfoMapper">
+
+    <!-- 开启二级缓存 -->
+   <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcRightInfo">
+        <id column="id" property="id" />
+        <result column="zzbh" property="zzbh" />
+        <result column="zzlx" property="zzlx" />
+        <result column="qlxz" property="qlxz" />
+        <result column="syqqssj" property="syqqssj" />
+        <result column="syqjssj" property="syqjssj" />
+        <result column="qlqtzk" property="qlqtzk" />
+        <result column="tdqllx" property="tdqllx" />
+        <result column="tdqlxz" property="tdqlxz" />
+        <result column="tdqlrxz" property="tdqlrxz" />
+        <result column="fj" property="fj" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, zzbh, zzlx, qlxz, syqqssj, syqjssj, qlqtzk, tdqllx, tdqlxz, tdqlrxz, fj
+    </sql>
+
+</mapper>

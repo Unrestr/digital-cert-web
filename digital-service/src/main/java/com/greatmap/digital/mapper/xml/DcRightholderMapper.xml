@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcRightholderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcRightholder">
+        <id column="ID" property="id" />
+        <result column="ZZBH" property="zzbh" />
+        <result column="ZH" property="zh" />
+        <result column="MC" property="mc" />
+        <result column="GX" property="gx" />
+        <result column="ZJLX" property="zjlx" />
+        <result column="ZJH" property="zjh" />
+        <result column="GYFS" property="gyfs" />
+        <result column="GYBL" property="gybl" />
+        <result column="SFCZ" property="sfcz" />
+        <result column="LXDH" property="lxdh" />
+        <result column="GYQK" property="gyqk" />
+        <result column="RYFL" property="ryfl" />
+        <result column="BDCDYH" property="bdcdyh" />
+        <result column="GYR" property="gyr" />
+        <result column="GYRZJH" property="gyrzjh" />
+        <result column="CJR" property="cjr" />
+        <result column="GXR" property="gxr" />
+        <result column="CJSJ" property="cjsj" />
+        <result column="GXSJ" property="gxsj" />
+        <result column="VERSION" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, ZZBH AS zzbh, ZH AS zh, MC AS mc, GX AS gx, ZJLX AS zjlx, ZJH AS zjh, GYFS AS gyfs, GYBL AS gybl, SFCZ AS sfcz, LXDH AS lxdh, GYQK AS gyqk, RYFL AS ryfl, BDCDYH AS bdcdyh, GYR AS gyr, GYRZJH AS gyrzjh, CJR AS cjr, GXR AS gxr, CJSJ AS cjsj, GXSJ AS gxsj, VERSION AS version
+    </sql>
+
+</mapper>

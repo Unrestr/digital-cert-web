@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcRegistrationPrintMapper">
+
+    <!-- 开启二级缓存 -->
+   <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcRegistrationPrint">
+        <id column="id" property="id" />
+        <result column="zzbh" property="zzbh" />
+        <result column="jc" property="jc" />
+        <result column="nf" property="nf" />
+        <result column="x" property="x" />
+        <result column="djsj" property="djsj" />
+        <result column="bh" property="bh" />
+        <result column="zmqlhsx" property="zmqlhsx" />
+        <result column="qlr" property="qlr" />
+        <result column="ywr" property="ywr" />
+        <result column="zl" property="zl" />
+        <result column="bdcdyh" property="bdcdyh" />
+        <result column="qt" property="qt" />
+        <result column="fj" property="fj" />
+        <result column="cxewm" property="cxewm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, zzbh, jc, nf, x, djsj, bh, zmqlhsx, qlr, ywr, zl, bdcdyh, qt, fj, cxewm
+    </sql>
+
+</mapper>

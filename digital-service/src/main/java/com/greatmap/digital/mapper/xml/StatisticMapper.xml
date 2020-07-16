@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.StatisticMapper">
+
+    <select id="statictisEveryType" resultType="java.util.Map">
+        SELECT  TO_CHAR(BFSJ,${type}) AS type,
+        SUM(CASE WHEN STATUS ='0' THEN 1 ELSE 0 END) AS "颁发量",
+        SUM(CASE WHEN STATUS ='1' THEN 1 ELSE 0 END) AS "注销量",
+        SUM(CASE WHEN STATUS ='2' THEN 1 ELSE 0 END) AS "作废量"
+        FROM
+        (SELECT D.ZZMC AS ZZMC,'0' AS STATUS,D.BFSJ AS BFSJ,D.QXDM AS QXDM FROM DC_CERT_INFO D
+        UNION ALL
+        SELECT H.ZZMC AS ZZMC,H.STATUS AS STATUS,H.BFSJ AS BFSJ,H.QXDM AS QXDM FROM DC_CERT_INFO_HIS H)
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="zzmc != null and zzmc !=''">
+                AND ZZMC = #{zzmc}
+            </if>
+            <if test="qxdm != null and qxdm !=''">
+                AND QXDM = #{qxdm}
+            </if>
+        </trim>
+        GROUP BY TO_CHAR(BFSJ,${type})
+        ORDER BY TO_CHAR(BFSJ,${type})
+    </select>
+</mapper>

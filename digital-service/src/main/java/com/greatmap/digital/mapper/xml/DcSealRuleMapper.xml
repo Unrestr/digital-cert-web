@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcSealRuleMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcSealRule">
+        <result column="QZGZMC" property="qzgzmc" />
+        <result column="QZGZLX" property="qzgzlx" />
+        <result column="SEALID" property="sealid" />
+        <result column="LEFTX" property="leftx" />
+        <result column="LEFTY" property="lefty" />
+        <result column="WIDTH" property="width" />
+        <result column="HEIGHT" property="height" />
+        <result column="PAGE" property="page" />
+        <result column="CALX" property="calx" />
+        <result column="QZXX" property="qzxx" />
+        <result column="QXDM" property="qxdm" />
+        <result column="QXMC" property="qxmc" />
+        <result column="ID" property="id" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        QZGZMC AS qzgzmc, QZGZLX AS qzgzlx, SEALID AS sealid, LEFTX AS leftx, LEFTY AS lefty, WIDTH AS width, HEIGHT AS height, PAGE AS page, CALX AS calx, QZXX AS qzxx, QXDM AS qxdm, QXMC AS qxmc, ID AS id
+    </sql>
+
+</mapper>

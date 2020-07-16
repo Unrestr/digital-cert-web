@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcPropertyPrintMapper">
+
+    <!-- 开启二级缓存 -->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcPropertyPrint">
+        <id column="id" property="id" />
+        <result column="zzbh" property="zzbh" />
+        <result column="jc" property="jc" />
+        <result column="nf" property="nf" />
+        <result column="x" property="x" />
+        <result column="djsj" property="djsj" />
+        <result column="bh" property="bh" />
+        <result column="qlr" property="qlr" />
+        <result column="gyqk" property="gyqk" />
+        <result column="zl" property="zl" />
+        <result column="bdcdyh" property="bdcdyh" />
+        <result column="qllx" property="qllx" />
+        <result column="qlxz" property="qlxz" />
+        <result column="yt" property="yt" />
+        <result column="mj" property="mj" />
+        <result column="syqs" property="syqs" />
+        <result column="qlqtqk" property="qlqtqk" />
+        <result column="fj" property="fj" />
+        <result column="cxewm" property="cxewm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, zzbh, jc, nf, x, djsj, bh, qlr, gyqk, zl, bdcdyh, qllx, qlxz, yt, mj, syqs, qlqtqk, fj, cxewm
+    </sql>
+
+</mapper>

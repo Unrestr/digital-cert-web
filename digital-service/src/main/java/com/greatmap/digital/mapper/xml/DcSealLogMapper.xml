@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greatmap.digital.mapper.DcSealLogMapper">
+
+    <select id="statisticCertInfoOperation" resultType="java.util.Map">
+        select to_char(qqsj,'yyyy-MM-dd') sj,
+        <foreach collection="czxqList" item="czxq" index="index"  separator=",">
+            sum(case when czxq='${czxq}' then '1' else '0' end) ${czxq}
+        </foreach>
+        from dc_seal_log
+        <where>
+            <if test="djjg!=null and djjg!=''">
+                and ssjg = #{djjg}
+            </if>
+            <if test="startDate!=null">
+                and qqsj >= #{startDate}
+            </if>
+            <if test="endDate!=null">
+                and #{endDate} >= qqsj
+            </if>
+        </where>
+        group by to_char(qqsj,'yyyy-MM-dd')
+        order by to_char(qqsj,'yyyy-MM-dd')
+    </select>
+    <select id="statisticInspectionQuantity" resultType="java.util.Map">
+        select ssjg,czxq ,count(*) num
+        from dc_seal_log
+        <where>
+            <if test="czxq!=null and czxq!=''">
+                czxq = #{czxq}
+            </if>
+            group by ssjg,czxq
+            order by num desc
+        </where>
+    </select>
+    <select id="selectCzxqList" resultType="java.lang.String">
+        select distinct czxq from dc_seal_log
+    </select>
+
+</mapper>

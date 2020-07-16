@@ -1,0 +1,70 @@
+# mysql连接池配置
+spring:
+  datasource:
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/gaism?noAccessToProcedureBodies=true&useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8&serverTimezone=CTT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: gaism
+    password: gaism
+    druid:
+      ##初始化连接数
+      initialSize: 5
+      ##最小空闲数
+      minIdle: 5
+      ##最大活动数
+      maxActive: 20
+      ##最大等待时间
+      maxWait: 60000
+      ##每60秒运行一次空闲连接回收器
+      timeBetweenEvictionRunsMillis: 60000
+      ##池中连接空闲时隔多久被回收
+      minEvictableIdleTimeMillis: 30000
+      ##验证使用的sql语句
+      validationQuery: SELECT 1
+      ##验证sql语句的超时时间
+      validationQueryTimeout: 10000
+      ##指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      testWhileIdle: true
+      ##借出连接时不要测试，否则很影响性能
+      testOnBorrow: false
+      testOnReturn: false
+      ##连接池使用预处理语句
+      poolPreparedStatements: true
+      ##每个连接最大拥有多少PreparedStatement
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall
+      useGlobalDataSourceStat: true
+      ##连接泄露回收参数
+      removeAbandoned: false
+      filter:
+        commons-log:
+          enabled: true
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 5000
+          merge-sql: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        allow: null
+        deny: null
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 10000
+    jedis:
+      pool:
+        max-active: 50
+        max-wait: 3000
+        max-idle: 20
+logging:
+  config: classpath:logback-pro.xml
+
