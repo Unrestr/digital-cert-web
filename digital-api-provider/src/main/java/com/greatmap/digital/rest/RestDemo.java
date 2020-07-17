@@ -1,7 +1,6 @@
 package com.greatmap.digital.rest;
 
 import com.greatmap.digital.util.http.HttpUtils;
-import org.junit.Test;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +13,6 @@ import java.util.Map;
  */
 public class RestDemo {
 
-    @Test
     public void testAddCertificate() {
 
         String url = "http://192.168.5.34:58080/digital-provider/rest/api/addCert";
@@ -32,7 +30,6 @@ public class RestDemo {
         System.out.println(s);
     }
 
-    @Test
     public void testLogoutCert() {
         String url = "http://192.168.5.51:8081/digital-provider/rest/api/logoutCert";
         Map<String,Object> map = new HashMap<>();
@@ -46,7 +43,7 @@ public class RestDemo {
         System.out.println(s);
     }
 
-    @Test
+
     public void testVerifyCertificate() {
         String url = "http://192.168.0.103:8081/digital-provider/rest/api/verifyCertificate";
         Map<String,Object> map = new HashMap<>();
@@ -61,7 +58,7 @@ public class RestDemo {
         System.out.println(s);
     }
 
-    @Test
+
     public void testVerifyInvalidCert() {
         String url = "http://192.168.5.51:8081/digital-provider/rest/api/invalidCert";
         Map<String,Object> map = new HashMap<>(10);
@@ -72,7 +69,7 @@ public class RestDemo {
         System.out.println(s);
     }
 
-    @Test
+
     public void testFindCertInfoHisPage() {
         String url = "http://192.168.5.51:8081/digital-provider/rest/api/findCertInfoHisPage";
         Map<String,Object> map = new HashMap<>(10);
@@ -85,7 +82,7 @@ public class RestDemo {
         System.out.println(s);
     }
 
-    @Test
+
     public void testFindTest() {
         String url = "http://192.168.5.51:8081/digital-provider/rest/api/test";
         Map<String,Object> map = new HashMap<>(10);
