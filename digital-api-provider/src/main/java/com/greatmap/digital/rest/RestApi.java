@@ -1,21 +1,16 @@
 package com.greatmap.digital.rest;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.greatmap.dex.aop.ResolvedDexParams;
 import com.greatmap.digital.base.BaseController;
-import com.greatmap.digital.dc3psDto.ResponseMsg;
 import com.greatmap.digital.dto.CertificateDto;
 import com.greatmap.digital.dto.rest.CertDto;
-import com.greatmap.digital.enums.TxStatusEnum;
 import com.greatmap.digital.excepition.DigitalThirdException;
-import com.greatmap.digital.intercepters.ResolveThirdParams;
 import com.greatmap.digital.service.DcCertInfoService;
-import com.greatmap.digital.service.StatisticsService;
 import com.greatmap.digital.service.dcThirdBiz.DownloadCertificateService;
 import com.greatmap.digital.service.dcThirdBiz.VerifyCertificateService;
 import com.greatmap.fms.service.FileUploadService;
-import com.greatmap.framework.core.date.DateUtil;
 import com.greatmap.framework.web.controller.RestResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,16 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
 import java.util.List;
 
 import static com.greatmap.digital.base.DcConstants.RequestParam.*;
@@ -59,9 +45,6 @@ public class RestApi extends BaseController {
 
     @Value("${tempDirectory}")
     private String tempDirectory;
-
-    @Value("${dex.systemCode}")
-    private String dcSystemCode;
 
     @Reference
     private FileUploadService fileUploadService;
@@ -117,7 +100,7 @@ public class RestApi extends BaseController {
         return addCert;
     }
 
-    @ApiOperation("验证数字证书")
+   /* @ApiOperation("验证数字证书")
     @PostMapping("verifyCertificate")
     public Object verifyCertificate(@ApiParam("证照信息") HttpServletRequest request) {
         ResponseMsg responseMsg = new ResponseMsg();
@@ -164,9 +147,9 @@ public class RestApi extends BaseController {
             responseMsg.setRtnMessage(e.getMessage());
             throw new DigitalThirdException(e.getMessage());
         }
-    }
+    }*/
 
-    @ApiOperation("验证数字证书-测试")
+   /* @ApiOperation("验证数字证书-测试")
     @PostMapping("verifyCertificateTest")
     public RestResult verifyCertificateTest(@ApiParam("压缩包") MultipartFile verifyCertificateZip, HttpServletRequest request) {
 
@@ -175,9 +158,9 @@ public class RestApi extends BaseController {
         }
         RestResult restResult = verifyCertificateService.verifyCertificateInfo(verifyCertificateZip, tempDirectory);
         return restResult;
-    }
+    }*/
 
-    @ApiOperation("下载电子证书")
+   /* @ApiOperation("下载电子证书")
     @PostMapping("downloadCertificate")
     @ResolveThirdParams(encryptResponse = false)
     public void downloadCertificate(@ApiParam(value = "解密后请求参数") @RequestBody String data, HttpServletResponse response) {
@@ -189,7 +172,7 @@ public class RestApi extends BaseController {
         String jg = jsonObject.getString("jg");
         String ip = jsonObject.getString("ip");
         downloadCertificateService.downloadCertificate(tempDirectory, response, zh, yhm, jg, ip);
-    }
+    }*/
 
     @ApiOperation("验证数字证书")
     @PostMapping(value = "verify")
@@ -220,6 +203,7 @@ public class RestApi extends BaseController {
 
     @ApiOperation("电子证照查询")
     @PostMapping("queryCertificateList")
+    @ResolvedDexParams(name = "dcDexHttpServer", validate = "paramsValidate")
     public Object queryCertificateList(@ApiParam(value = "证号/证明号") @RequestParam(required = false) String zh,
                                        @ApiParam(value = "权利人名称") @RequestParam(required = true) String qlrmc,
                                        @ApiParam(value = "权利人证件号") @RequestParam(required = true) String qlrzjh,

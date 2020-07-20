@@ -111,12 +111,12 @@ ftp:
 
 
 
-tempDirectory: C:/FTP/work/print
+tempDirectory: D:/FTP
 
 dex:
   dcPublicKey: A9UpigS3bMWtp+1YbjjJvsmE7Uz4FABMgruG4uApBqki
   dcPrivateKey: AKxdgJ9cOLlJ2WGs4w6GpcHw9TgmFTMKc+X8wmubzMYV
-  systemCode: dcSyscode
-  dexSenderPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
-  dexSenderIndustryCodeUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/dockingSystemService/queryIndustryCodeAndAreaCodeBySystemCode
-  dexPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getReceiverPublicSecret
+  refreshPublicKey: false
+  fetchPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
+  mapParams:
+    senderID: WSXXBBDCCS2020528

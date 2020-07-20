@@ -17,7 +17,7 @@
         from dc_cert_info a
         left join
         <if test="zzlx==1">
-             dc_property_print
+            dc_property_print
         </if>
         <if test="zzlx!=1">
             dc_registration_print
@@ -40,7 +40,8 @@
         </where>
     </select>
     <select id="getBasicCertInfo" resultType="com.greatmap.digital.dto.CertBaseDto">
-        select　'中华人民共和国不动产权证书' zzlxmc,'11100000MB03271699001' zzlxdm, a.zzbh,a.zzbsm zzbs,a.zh zh,a.djyy bfyy,b.syqqssj zzyxqssj,b.syqjssj zzyxjzsj,
+        select　'中华人民共和国不动产权证书' zzlxmc,'11100000MB03271699001' zzlxdm, a.zzbh,a.zzbsm zzbs,a.zh zh,a.djyy bfyy,b.syqqssj
+        zzyxqssj,b.syqjssj zzyxjzsj,
         a.djjg bfjg , a.djjgdm bfjgdm ,a.zzzxrq zxrq ,a.zxyy zxyy , a.zzfl zzfl
         from dc_cert_info a left join
         dc_right_info b on a.zzbh = b.zzbh
@@ -53,10 +54,10 @@
     </select>
     <select id="selectNumByDay" resultType="java.util.Map">
         select
-            to_char(bfsj,'yyyy-MM-dd') sj,
-            sum(case when zzfl=1 then '1' else '0' end) cert,
-            sum(case when zzfl=2 then '1' else '0' end) prove,
-            sum(case when zzfl!=1 and zzfl!=2 then '1' else '0' end) other
+        to_char(bfsj,'yyyy-MM-dd') sj,
+        sum(case when zzfl=1 then '1' else '0' end) cert,
+        sum(case when zzfl=2 then '1' else '0' end) prove,
+        sum(case when zzfl!=1 and zzfl!=2 then '1' else '0' end) other
         from dc_cert_info
         <where>
             <if test="djjgdm!=null and djjgdm!=''">
@@ -77,16 +78,14 @@
         SELECT ER.MC AS QLRMC,ER.ZJH AS QLRZJH,INFO.ZH AS BDCQZH,INFO.ZZMC AS ZZMC,INFO.BFSJ AS BFSJ,
         INFO.DJJG AS QQBFDJJG,INFO.DJYY AS BFYY,INFO.ZT AS ZT FROM DC_CERT_INFO INFO , DC_RIGHTHOLDER ER
         WHERE INFO.ZZBH = ER.ZZBH
-        <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="zh != null and zh != ''">
-               AND INFO.ZH = #{zh}
-            </if>
-            <if test="qlrmc != null and qlrmc != ''">
-                AND ER.MC = #{qlrmc}
-            </if>
-            <if test="qlrzjh != null and qlrzjh !=''">
-                AND ER.ZJH = #{qlrzjh}
-            </if>
-        </trim>
+        <if test="zh != null and zh != ''">
+            AND INFO.ZH = #{zh}
+        </if>
+        <if test="qlrmc != null and qlrmc != ''">
+            AND ER.MC = #{qlrmc}
+        </if>
+        <if test="qlrzjh != null and qlrzjh !=''">
+            AND ER.ZJH = #{qlrzjh}
+        </if>
     </select>
 </mapper>
