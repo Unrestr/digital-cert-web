@@ -199,7 +199,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
     @Override
     @Transactional(rollbackFor = Exception.class)
     @DcLog(operateType = "生成证照")
-    public boolean addCertificate(CertDto certDto,String ip,String sljg,String zh,String yhm) {
+    public Map<String,String> addCertificate(CertDto certDto,String ip,String sljg,String zh,String yhm) {
         //获取模板标识Code
         DcCertTemplate certTemplate = dcCertTemplateService.selectOne(new EntityWrapper<DcCertTemplate>().eq("QXDM", certDto.getQxdm()).eq("ZZMC", certDto.getZzmc()));
         //签章规则
@@ -293,7 +293,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
      * @param certDto
      * @return
      */
-    private boolean saveZsInfo(CertDto certDto, FileInfo fileInfo) {
+    private Map<String,String> saveZsInfo(CertDto certDto, FileInfo fileInfo) {
         //证照基础信息
         //证照编号
        // String zzbh = sequenceContext.apply("DZZZ_ZSBH");
@@ -334,7 +334,9 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         dcRightholderService.insertBatch(dcRightholders);
         dcUnitInfoService.insertBatch(dcUnitInfos);
         dcCertAssotypeService.insert(certAssoType);
-        return true;
+        Map<String,String> zzbhMap = new HashMap<>();
+        zzbhMap.put("zzbh",zzbh);
+        return zzbhMap;
     }
 
     private DcCertAssotype saveAssotype(CertDto certDto) {

@@ -48,7 +48,7 @@ public interface DcCertInfoService extends IService<DcCertInfo> {
      * @param certDto
      * @return
      */
-    boolean addCertificate(CertDto certDto,String ip,String sljg,String zh,String yhm);
+    Map<String,String> addCertificate(CertDto certDto,String ip,String sljg,String zh,String yhm);
 
     /**
      * 按时间分组,获取电子证书,电子证明,其他证明的数量

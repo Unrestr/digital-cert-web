@@ -45,7 +45,7 @@ public class ZsDyxx implements Serializable {
     /**
      * 共有情况
      */
-    private String qyqk;
+    private String gyqk;
 
     /**
      * 不动产权证

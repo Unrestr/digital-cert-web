@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 /**
  * @author greatmap
  */
-@SpringBootApplication(scanBasePackages = "com.greatmap.digital")
+@SpringBootApplication(scanBasePackages = "com.greatmap")
 public class DigitalApiProviderApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
