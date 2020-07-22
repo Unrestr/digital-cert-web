@@ -52,7 +52,7 @@ temp:
 wcf:
   wcfServer: 192.168.5.34:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory  : C:/FTP/work/print
+  tempDirectory: /data/FTP/work/print
   relativePath: estate/documents/register
 
 ftp:
@@ -61,7 +61,7 @@ ftp:
   psw: ftp
   http: http://192.168.5.34:18080/ftpdirectory
 
-tempDirectory: C:/FTP/work/print
+tempDirectory: /data/FTP/work/print
 
 # mysql连接池配置
 spring:

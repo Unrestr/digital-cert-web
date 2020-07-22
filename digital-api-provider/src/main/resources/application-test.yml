@@ -104,17 +104,6 @@ spring:
         login-password: admin
         allow: null
         deny: null
-  redis:
-    host: 127.0.0.1
-    port: 6381
-    timeout: 10000
-    jedis:
-      pool:
-        max-active: 10
-        max-wait: 3000
-        max-idle: 2
-
-
 #dubbo配置
 dubbo:
   config:
@@ -123,17 +112,17 @@ dubbo:
     name: digital-server
   registries:
     digital:
-      address: 127.0.0.1:2281
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: gaism
     fms:
-      address: 127.0.0.1:2281
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  127.0.0.1:2281
+      address:  127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: uums
@@ -146,6 +135,7 @@ dubbo:
 logging:
   config: classpath:logback.xml
 
+
 sign:
   ca: HBCA
   hbca:
@@ -153,3 +143,26 @@ sign:
   sxca:
     http: http://117.32.132.78:19000/cloudsign/resource/rest/v1/shared/
 
+wcf:
+  wcfServer: 192.168.5.34:9090
+  estatePrintUrl: /MapFunService/EstatePrint
+  tempDirectory:  /data/FTP/work/print
+  relativePath: estate/documents/register
+
+ftp:
+  host: ftp://192.168.5.222:38333
+  user: ftp
+  psw: ftp
+  http: http://192.168.5.34:18080/ftpdirectory
+
+
+
+tempDirectory: /data/FTP/work/print
+
+dex:
+  dcPublicKey: A9UpigS3bMWtp+1YbjjJvsmE7Uz4FABMgruG4uApBqki
+  dcPrivateKey: AKxdgJ9cOLlJ2WGs4w6GpcHw9TgmFTMKc+X8wmubzMYV
+  refreshPublicKey: false
+  fetchPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
+  mapParams:
+    senderID: WSXXBBDCCS2020528

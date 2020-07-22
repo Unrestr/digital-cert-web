@@ -138,6 +138,7 @@ dubbo:
 logging:
   config: classpath:logback.xml
 
+
 sign:
   ca: HBCA
   hbca:
@@ -148,7 +149,7 @@ sign:
 wcf:
   wcfServer: 192.168.5.34:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory: C:/FTP/work/print
+  tempDirectory:  /data/FTP/work/print
   relativePath: estate/documents/register
 
 ftp:
@@ -159,7 +160,7 @@ ftp:
 
 
 
-tempDirectory: D:/FTP
+tempDirectory: /data/FTP/work/print
 
 dex:
   dcPublicKey: A9UpigS3bMWtp+1YbjjJvsmE7Uz4FABMgruG4uApBqki
