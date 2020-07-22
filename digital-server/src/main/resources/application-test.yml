@@ -140,17 +140,17 @@ dubbo:
     name: digital-server
   registries:
     digital:
-      address: 127.0.0.1:2181
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: gaism
     fms:
-      address: 127.0.0.1:2181
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  127.0.0.1:2181
+      address:  127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: uums
