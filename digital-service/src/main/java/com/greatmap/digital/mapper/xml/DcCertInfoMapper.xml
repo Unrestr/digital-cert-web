@@ -15,7 +15,7 @@
         </if>
         b.zl zl
         from dc_cert_info a
-        left join
+        inner join
         <if test="zzlx==1">
             dc_property_print
         </if>
