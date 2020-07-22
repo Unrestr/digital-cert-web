@@ -1,3 +1,68 @@
+# 端口
+server:
+  port: 10002
+  servlet:
+    context-path: /digital-server
+
+
+#mybaties-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:com/greatmap/digital/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.greatmap.digital.model
+  #typeEnumsPackage: com.greatmap.digital.enums
+  global-config:
+    # 刷新mapper
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+      id-type: id_worker
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: oracle
+    refresh: true
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    #sql日志 开发用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 雪花ID生成器配置
+snowFlakeIdWorker:
+  workerId: 2
+  dataCenterId: 2
+
+#监管路径配置
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+
+
+temp:
+  path: E:/temp/digitalcertificate
+
+wcf:
+  wcfServer: 192.168.5.34:9090
+  estatePrintUrl: /MapFunService/EstatePrint
+  tempDirectory  : C:/FTP/work/print
+  relativePath: estate/documents/register
+
+ftp:
+  host: ftp://192.168.5.222:38333
+  user: ftp
+  psw: ftp
+  http: http://192.168.5.34:18080/ftpdirectory
+
+tempDirectory: C:/FTP/work/print
+
 # mysql连接池配置
 spring:
   datasource:
