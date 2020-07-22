@@ -48,6 +48,8 @@ management:
 
 # mysql连接池配置
 spring:
+  application:
+    name: digital-provider
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
@@ -104,7 +106,7 @@ spring:
         login-password: admin
         allow: null
         deny: null
-#dubbo配置
+  #dubbo配置
 dubbo:
   config:
     multiple: true
@@ -136,8 +138,9 @@ dubbo:
     base-packages: com.greatmap.digital
 
 logging:
-  config: classpath:logback.xml
-
+  config: classpath:logback-spring.xml
+  path: /data/log
+  level.root: info
 
 sign:
   ca: HBCA

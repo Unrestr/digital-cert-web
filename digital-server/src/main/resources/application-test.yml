@@ -65,6 +65,8 @@ tempDirectory: /data/FTP/work/print
 
 # mysql连接池配置
 spring:
+  application:
+    name: digital-server
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
@@ -161,7 +163,9 @@ dubbo:
     base-packages: com.greatmap.digital
 
 logging:
-  config: classpath:logback.xml
+  config: classpath:logback-spring.xml
+  path: /data/log
+  level.root: info
 
 sign:
   ca: HBCA
