@@ -111,7 +111,7 @@ dubbo:
   config:
     multiple: true
   application:
-    name: digital-server
+    name: digital-provider
   registries:
     digital:
       address: localhost:2181
