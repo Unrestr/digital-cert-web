@@ -1,16 +1,20 @@
 package com.greatmap.digital.rest;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.greatmap.dex.aop.ResolvedDexParams;
 import com.greatmap.digital.base.BaseController;
 import com.greatmap.digital.dto.CertificateDto;
 import com.greatmap.digital.dto.rest.CertDto;
+import com.greatmap.digital.dto.rest.QlrQueryDto;
 import com.greatmap.digital.excepition.DigitalThirdException;
 import com.greatmap.digital.service.DcCertInfoService;
 import com.greatmap.digital.service.dcThirdBiz.DownloadCertificateService;
 import com.greatmap.digital.service.dcThirdBiz.VerifyCertificateService;
 import com.greatmap.fms.service.FileUploadService;
+import com.greatmap.framework.core.util.CollectionUtil;
 import com.greatmap.framework.web.controller.RestResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static com.greatmap.digital.base.DcConstants.RequestParam.*;
 
@@ -55,32 +61,39 @@ public class RestApi extends BaseController {
      * @param requestData
      * @return
      */
-    //TODO 通用共享交换响应体
     @PostMapping("addPropertyCertificate")
     @ApiOperation("新增证书签章")
-    public Boolean addPropertyCertificate(String requestData) {
-        if (StringUtils.isBlank(requestData)) {
+    public Object addPropertyCertificate(@ApiParam("传入参数") @RequestBody String params) {
+        if (StringUtils.isBlank(params)) {
             throw new DigitalThirdException("生成证书失败,传入信息为空。");
         }
-        JSONObject requestParam = JSONObject.parseObject(requestData);
-        if (!(requestParam.containsKey(QLR_LIST) && requestParam.containsKey(QLXX))) {
+        Map<String, String> oneWindowParam = JSON.parseObject(params, new TypeReference<Map<String, String>>() {
+        });
+        List<CertDto> certDtos = JSONObject.parseArray(oneWindowParam.get("data"), CertDto.class);
+        if (CollectionUtil.isEmpty(certDtos)) {
+            throw new DigitalThirdException("证照打印信息为空!");
+        }
+        CertDto certParam = certDtos.get(0);
+        if (CollectionUtil.isEmpty(certParam.getQlrList()) || certParam.getQlxx() == null) {
             throw new DigitalThirdException("缺少权利人、权利信息");
         }
 
-        if (!(requestParam.containsKey(DYXX_LIST) && requestParam.containsKey(JCXX))) {
+       /* if (CollectionUtil.isEmpty(certParam.getDyxxList()) && requestParam.containsKey(JCXX))) {
             throw new DigitalThirdException("缺少单元基础信息");
         }
         if (!requestParam.containsKey(ZSDYXX)) {
             throw new DigitalThirdException("缺少需要打印信息");
-        }
-        CertDto certDto = JSONObject.parseObject(requestData, CertDto.class);
-        boolean addCert = dcCertInfoService.addCertificate(certDto, certDto.getIp(), certDto.getDjjg(), certDto.getZh(), certDto.getYhm());
-        return addCert;
+        }*/
+        CertDto certDto = certParam;
+        Map<String, String> addCert = dcCertInfoService.addCertificate(certDto, certDto.getIp(), certDto.getDjjg(), certDto.getZh(), certDto.getYhm());
+        List<Map<String, String>> list = new ArrayList<>();
+        list.add(addCert);
+        return list;
     }
 
     @PostMapping("addRegistrationCertificate")
     @ApiOperation("新增证明签章")
-    public Boolean addRegistrationCertificate(String requestData) {
+    public Object addRegistrationCertificate(String requestData) {
         if (StringUtils.isBlank(requestData)) {
             throw new DigitalThirdException("生成证书失败,传入信息为空。");
         }
@@ -96,8 +109,10 @@ public class RestApi extends BaseController {
             throw new DigitalThirdException("缺少需要打印信息");
         }
         CertDto certDto = JSONObject.parseObject(requestData, CertDto.class);
-        boolean addCert = dcCertInfoService.addCertificate(certDto, certDto.getIp(), certDto.getDjjg(), certDto.getZh(), certDto.getYhm());
-        return addCert;
+        Map<String, String> addCert = dcCertInfoService.addCertificate(certDto, certDto.getIp(), certDto.getDjjg(), certDto.getZh(), certDto.getYhm());
+        List<Map<String, String>> list = new ArrayList<>();
+        list.add(addCert);
+        return list;
     }
 
    /* @ApiOperation("验证数字证书")
@@ -203,15 +218,16 @@ public class RestApi extends BaseController {
 
     @ApiOperation("电子证照查询")
     @PostMapping("queryCertificateList")
-    @ResolvedDexParams(name = "dcDexHttpServer", validate = "paramsValidate")
-    public Object queryCertificateList(@ApiParam(value = "证号/证明号") @RequestParam(required = false) String zh,
-                                       @ApiParam(value = "权利人名称") @RequestParam(required = true) String qlrmc,
-                                       @ApiParam(value = "权利人证件号") @RequestParam(required = true) String qlrzjh,
-                                       @ApiParam(value = "用户名") @RequestParam(required = true) String userName,
-                                       @ApiParam(value = "登记机构") @RequestParam(required = true) String djjg,
-                                       @ApiParam(value = "IP") @RequestParam(required = true) String ip) {
-
-        List<CertificateDto> result = downloadCertificateService.queryCertificateList(zh, qlrmc,qlrzjh,userName, djjg, ip);
+    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    public Object queryCertificateList(@ApiParam("传入参数") @RequestBody String params) {
+        Map<String, String> oneWindowParam = JSON.parseObject(params, new TypeReference<Map<String, String>>() {
+        });
+        List<QlrQueryDto> qlrQueryDtos = JSONObject.parseArray(oneWindowParam.get("data"), QlrQueryDto.class);
+        if (CollectionUtil.isEmpty(qlrQueryDtos)) {
+            throw new DigitalThirdException("查询参数不能为空!");
+        }
+        QlrQueryDto queryDto = qlrQueryDtos.get(0);
+        List<CertificateDto> result = downloadCertificateService.queryCertificateList(queryDto.getZh(), queryDto.getQlrmc(), queryDto.getQlrzjh(), queryDto.getYhm(), queryDto.getDjjg(), queryDto.getIp());
         return result;
     }
 }
