@@ -136,7 +136,7 @@ dubbo:
     base-packages: com.greatmap.digital
 
 logging:
-  config: classpath:logback-dev.xml
+  config: classpath:logback.xml
 
 sign:
   ca: HBCA
