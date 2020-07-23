@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 10002
+  port: 8090
   servlet:
     context-path: /digital-server
 
