@@ -101,4 +101,6 @@ public class ZsDyxx implements Serializable {
      * 查询二维码
      */
     private String cxewm;
+
+    private String zh;
 }

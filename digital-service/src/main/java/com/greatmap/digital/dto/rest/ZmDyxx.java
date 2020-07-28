@@ -85,4 +85,6 @@ public class ZmDyxx implements Serializable {
      *不动产登记证明号
      */
     private String bdcdjzmh;
+
+    private String zh;
 }

@@ -221,9 +221,11 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         String pdf = null;
         if (certDto.getZzlx().equals(ZS)) {
             //证书
+            certDto.getZsxx().setZh(zh);
             pdf = printService.printPDF(certDto.getZsxx(), certTemplate.getMbbs(), true);
         } else if (certDto.getZzlx().equals(ZM)) {
             //证明
+            certDto.getZmxx().setZh(zh);
             pdf = printService.printPDF(certDto.getZmxx(), certTemplate.getMbbs(), true);
         }
         if (org.apache.commons.lang3.StringUtils.isBlank(pdf) || !pdf.endsWith(".pdf")) {
