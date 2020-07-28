@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 10002
+  port: 8090
   servlet:
     context-path: /digital-server
 
@@ -52,7 +52,7 @@ temp:
 wcf:
   wcfServer: 192.168.5.34:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory  : C:/FTP/work/print
+  tempDirectory: /data/FTP/work/print
   relativePath: estate/documents/register
 
 ftp:
@@ -61,10 +61,12 @@ ftp:
   psw: ftp
   http: http://192.168.5.34:18080/ftpdirectory
 
-tempDirectory: C:/FTP/work/print
+tempDirectory: /data/FTP/work/print
 
 # mysql连接池配置
 spring:
+  application:
+    name: digital-server
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
@@ -122,14 +124,14 @@ spring:
         allow: null
         deny: null
   redis:
-    host: localhost
-    port: 6379
+    host: 127.0.0.1
+    port: 6381
     timeout: 10000
     jedis:
       pool:
-        max-active: 50
+        max-active: 10
         max-wait: 3000
-        max-idle: 20
+        max-idle: 2
 
 
 #dubbo配置
@@ -140,17 +142,17 @@ dubbo:
     name: digital-server
   registries:
     digital:
-      address: localhost:2181
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: gaism
     fms:
-      address: 192.168.1.82:2181
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  localhost:2181
+      address:  127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: uums
@@ -161,7 +163,9 @@ dubbo:
     base-packages: com.greatmap.digital
 
 logging:
-  config: classpath:logback-dev.xml
+  config: classpath:logback-spring.xml
+  path: /data/log
+  level.root: info
 
 sign:
   ca: HBCA
