@@ -21,5 +21,21 @@
     <sql id="Base_Column_List">
         id, mbbs, zzmc, qxdm, qxmc, zt, bz, mbsl
     </sql>
+    <select id="listTemplatePage" resultType="com.greatmap.digital.dto.DcCertTemplateDto">
+        SELECT R.QZGZID,R.QXMC,R.ZZMC,R.QZGZMC AS GZMC,T.MBBS,T.ZT FROM DC_CERT_SEAL_RULE R ,DC_CERT_TEMPLATE t
+        WHERE R.ZZMC = t.ZZMC AND R.QXDM = t.QXDM
+        <if test="qxmc !=null and qxmc !=''">
+            AND R.QXMC = #{qxmc}
+        </if>
+        <if test="zt !=null and zt !=''">
+            AND T.ZT = #{zt}
+        </if>
+        <if test="zzmc !=null and zzmc !=''">
+            AND R.ZZMC = #{zzmc}
+        </if>
+        <if test="gzmc !=null and gzmc !=''">
+            AND R.QZGZMC = #{gzmc}
+        </if>
+    </select>
 
 </mapper>

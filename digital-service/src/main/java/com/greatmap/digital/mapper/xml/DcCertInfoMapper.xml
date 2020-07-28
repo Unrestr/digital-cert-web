@@ -40,7 +40,7 @@
         </where>
     </select>
     <select id="getBasicCertInfo" resultType="com.greatmap.digital.dto.CertBaseDto">
-        select　'中华人民共和国不动产权证书' zzlxmc,'11100000MB03271699001' zzlxdm, a.zzbh,a.zzbsm zzbs,a.zh zh,a.djyy bfyy,b.syqqssj
+        select '中华人民共和国不动产权证书' zzlxmc,'11100000MB03271699001' zzlxdm, a.zzbh,a.zzbsm zzbs,a.zh zh,a.djyy bfyy,b.syqqssj
         zzyxqssj,b.syqjssj zzyxjzsj,
         a.djjg bfjg , a.djjgdm bfjgdm ,a.zzzxrq zxrq ,a.zxyy zxyy , a.zzfl zzfl
         from dc_cert_info a left join

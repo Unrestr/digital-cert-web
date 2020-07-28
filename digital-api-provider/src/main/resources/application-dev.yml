@@ -107,15 +107,15 @@ ftp:
   host: ftp://192.168.5.222:38333
   user: ftp
   psw: ftp
-  http: http://192.168.5.34:18080/ftpdirectory
+  http: http://192.168.1.168:18080/ftpdirectory
 
 
 
 tempDirectory: D:/FTP
 
 dex:
-  dcPublicKey: A9UpigS3bMWtp+1YbjjJvsmE7Uz4FABMgruG4uApBqki
-  dcPrivateKey: AKxdgJ9cOLlJ2WGs4w6GpcHw9TgmFTMKc+X8wmubzMYV
+  dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
+  dcPrivateKey: alwMqjVcfSKyQ4PzRzO2KizDcyGVWo5iD3xPwCcdo1s=
   refreshPublicKey: false
   fetchPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
   mapParams:

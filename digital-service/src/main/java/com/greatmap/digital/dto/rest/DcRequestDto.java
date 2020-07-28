@@ -2,7 +2,10 @@ package com.greatmap.digital.dto.rest;
 
 import java.io.Serializable;
 
-public class QlrQueryDto implements Serializable {
+/**
+ * @author gr
+ */
+public class DcRequestDto implements Serializable {
 
     private String qlrmc;
 
@@ -15,6 +18,26 @@ public class QlrQueryDto implements Serializable {
     private String djjg;
 
     private String ip;
+
+    private String file;
+
+    private String zjzl;
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getZjzl() {
+        return zjzl;
+    }
+
+    public void setZjzl(String zjzl) {
+        this.zjzl = zjzl;
+    }
 
     public String getQlrmc() {
         return qlrmc;

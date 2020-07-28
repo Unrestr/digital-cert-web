@@ -14,6 +14,7 @@ import com.greatmap.digital.util.FileUtils;
 import com.greatmap.digital.util.Path;
 import com.greatmap.fms.service.FileInfoService;
 import com.greatmap.fms.service.FileUploadService;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 验证证书正确性业务逻辑处理类
@@ -170,7 +173,7 @@ public class DownloadCertificateService {
     }
 
     @DcLog(operateType = "证照下载")
-    public String download(String zh, String userName, String djjg, String ip) {
+    public List<Map<String,String>> download(String zh, String userName, String djjg, String ip) {
         DcCertInfo dcCertInfo = dcCertInfoService.selectOne(new EntityWrapper<DcCertInfo>().eq("ZH", zh));
         if (dcCertInfo == null) {
             throw new DigitalThirdException("未获取到证照信息" + zh);
@@ -180,7 +183,12 @@ public class DownloadCertificateService {
         if (fileByte == null || fileByte.length == 0) {
             throw new DigitalThirdException("未获取到文件信息" + zh);
         }
-        return Base64.getEncoder().encodeToString(fileByte);
+        String encode = Base64.getEncoder().encodeToString(fileByte);
+        Map<String,String> map = new HashMap<>(1);
+        map.put("zzxx",encode);
+        List<Map<String,String>> mapList = Lists.newArrayList();
+        mapList.add(map);
+        return mapList;
     }
 
     @DcLog(operateType = "证照查询")

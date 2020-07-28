@@ -1,8 +1,14 @@
 package com.greatmap.digital.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.greatmap.digital.dto.DcCertTemplateDto;
 import com.greatmap.digital.model.DcCertTemplate;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +21,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DcCertTemplateMapper extends BaseMapper<DcCertTemplate> {
 
+    List<DcCertTemplateDto> listTemplatePage(Pagination processPage, @Param("qxmc") String qxmc, @Param("zzmc")String zzmc, @Param("gzmc")String gzmc, @Param("zt")String zt);
 }

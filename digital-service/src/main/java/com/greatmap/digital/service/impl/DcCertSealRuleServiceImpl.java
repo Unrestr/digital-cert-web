@@ -120,7 +120,7 @@ public class DcCertSealRuleServiceImpl extends ServiceImpl<DcCertSealRuleMapper,
      * @param qxdm
      */
     @Override
-    public boolean addCertSealTemplate(String qzgzmc, String qzgzid, String zzmc, String zzlx, Integer sfzxz, String qxdm, String qxmc) {
+    public boolean addCertSealTemplate(String qzgzmc, String qzgzid, String zzmc, String zzlx, Integer sfzxz,String mbbs, String qxdm, String qxmc) {
         Integer zt = 1;
         List<DcCertSealRule> certSealRuleList = selectList(new EntityWrapper<DcCertSealRule>().eq("ZZMC", zzmc).eq("QXDM", qxdm));
         if (CollectionUtils.isNotEmpty(certSealRuleList)) {

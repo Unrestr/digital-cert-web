@@ -3,22 +3,6 @@
 <mapper namespace="com.greatmap.digital.mapper.DcCertSealRuleMapper">
 
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.greatmap.digital.model.DcCertSealRule">
-        <result column="ID" property="id" />
-        <result column="ZZMC" property="zzmc" />
-        <result column="ZZLX" property="zzlx" />
-        <result column="ZT" property="zt" />
-        <result column="SFZXZ" property="sfzxz" />
-        <result column="QZGZMC" property="qzgzmc" />
-        <result column="QZGZID" property="qzgzid" />
-        <result column="QXDM" property="qxdm" />
-        <result column="QXMC" property="qxmc" />
-    </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        ID AS id, ZZMC AS zzmc, ZZLX AS zzlx, ZT AS zt, SFZXZ AS sfzxz, QZGZMC AS qzgzmc, QZGZID AS qzgzid, QXDM AS qxdm, QXMC AS qxmc
-    </sql>
 
 </mapper>

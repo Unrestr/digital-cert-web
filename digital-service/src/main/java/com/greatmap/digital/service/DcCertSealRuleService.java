@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- *  签章信息服务类
+ * 签章信息服务类
  * </p>
  *
  * @author gaorui
@@ -23,15 +23,17 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
 
     /**
      * 获取签章信息列表
-     * @param zzmc 证照名称
+     *
+     * @param zzmc   证照名称
      * @param qzgzmc 签章规则名称
-     * @param qxdm 区县代码
+     * @param qxdm   区县代码
      * @return
      */
     List<DcCertSealRule> findCertSealRule(String zzmc, String qzgzmc, String qxdm);
 
     /**
      * 获取证书签章对应关系列表
+     *
      * @param page
      * @param zzmc
      * @param qzgzmc
@@ -39,23 +41,26 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
      * @param qxdm
      * @return
      */
-    Page<DcCertSealRule> getCertSealTemplatePageList(Page<DcCertSealRule> page,String zzmc, String qzgzmc, Integer zt,String qxdm);
+    Page<DcCertSealRule> getCertSealTemplatePageList(Page<DcCertSealRule> page, String zzmc, String qzgzmc, Integer zt, String qxdm);
 
     /**
      * 添加证书签章对应关系
+     *
      * @param qzgzmc
      * @param qzgzid
      * @param zzmc
      * @param zzlx
      * @param sfzxz
+     * @param mbbs
      * @param qxdm
      * @param qxmc
      * @return
      */
-    boolean addCertSealTemplate(String qzgzmc,String qzgzid,String zzmc,String zzlx,Integer sfzxz,String qxdm,String qxmc);
+    boolean addCertSealTemplate(String qzgzmc, String qzgzid, String zzmc, String zzlx, Integer sfzxz, String mbbs, String qxdm, String qxmc);
 
     /**
      * 删除证书签章对应关系
+     *
      * @param id
      * @return
      */
@@ -63,16 +68,18 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
 
     /**
      * 修改证书签章对应关系状态(停用或启用)
+     *
      * @param id
      * @param zzmc
      * @param zt
      * @param qxdm
      * @return
      */
-    boolean updateCertSealTemplate(String id,String zzmc,Integer zt,String qxdm);
+    boolean updateCertSealTemplate(String id, String zzmc, Integer zt, String qxdm);
 
     /**
      * 生成P10
+     *
      * @param restResult
      * @param sealIds
      * @param certAlg
@@ -83,6 +90,7 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
 
     /**
      * 上传签章信息
+     *
      * @param restResult
      * @param multipartFile
      * @return
@@ -91,6 +99,7 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
 
     /**
      * 修改数字签章状态
+     *
      * @param restResult
      * @param sealId
      * @param status
@@ -100,6 +109,7 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
 
     /**
      * 获取签章信息
+     *
      * @param restResult
      * @param sealId
      * @return

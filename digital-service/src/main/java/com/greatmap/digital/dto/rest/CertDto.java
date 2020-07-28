@@ -35,12 +35,12 @@ public class CertDto implements Serializable {
     /**
      * 证书打印信息(证书或者证明打印信息需一个有值)
      */
-    private ZsDyxx zsDyxx;
+    private ZsDyxx zsxx;
 
     /**
      * 证明打印信息
      */
-    private ZmDyxx zmDyxx;
+    private ZmDyxx zmxx;
 
     /**
      * 关联信息

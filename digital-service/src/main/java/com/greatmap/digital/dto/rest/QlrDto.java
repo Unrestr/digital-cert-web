@@ -14,7 +14,7 @@ public class QlrDto implements Serializable {
     /**
      * 名称
      */
-    private String mc;
+    private String qlrmc;
 
     /**
      * 与权利人关系
@@ -55,7 +55,7 @@ public class QlrDto implements Serializable {
     /**
      * 人员分类（1 权利人 2义务人）
      */
-    private String ryfl;
+    private String qlrfl;
 
     /**
      * 权利人类型

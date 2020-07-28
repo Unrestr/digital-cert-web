@@ -68,4 +68,10 @@ public class DcCertSealRule extends BaseModel implements Serializable {
     @TableField("QXMC")
     private String qxmc;
 
+    /**
+     * 模板标识
+     */
+    @TableField("MBBS")
+    private String mbbs;
+
 }
