@@ -39,7 +39,7 @@ public class SystemLogAspect {
 
 	private Boolean enable;
 
-	@Reference(registry = "uums")
+	@Reference(registry = "uums", version = "1.0.0")
 	private LogService logService;
 
     public SystemLogAspect() {
