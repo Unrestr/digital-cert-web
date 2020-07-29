@@ -1,0 +1,175 @@
+# 端口
+server:
+  port: 58090
+  servlet:
+    context-path: /digital-server
+
+
+#mybaties-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:com/greatmap/digital/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.greatmap.digital.model
+  #typeEnumsPackage: com.greatmap.digital.enums
+  global-config:
+    # 刷新mapper
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+      id-type: id_worker
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: oracle
+    refresh: true
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    #sql日志 开发用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 雪花ID生成器配置
+snowFlakeIdWorker:
+  workerId: 2
+  dataCenterId: 2
+
+#监管路径配置
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+
+
+temp:
+  path: E:/temp/digitalcertificate
+
+wcf:
+  wcfServer: 59.196.230.135:8966
+  estatePrintUrl: /MapFunService/EstatePrint
+  tempDirectory: E:/print
+  relativePath: digital
+
+ftp:
+  host: ftp://59.196.230.152:38333
+  user: FTP
+  psw: FTP
+  http: http://59.196.230.135:8089/ftpdirectory
+
+tempDirectory: E:/temp/tempDirectory
+
+# mysql连接池配置
+spring:
+  application:
+    name: digital-server
+  datasource:
+    name: druidDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:oracle:thin:@59.196.230.152:1521/orcl
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: dzzz
+    password: dzzz
+    druid:
+      ##初始化连接数
+      initialSize: 5
+      ##最小空闲数
+      minIdle: 5
+      ##最大活动数
+      maxActive: 20
+      ##最大等待时间
+      maxWait: 60000
+      ##每60秒运行一次空闲连接回收器
+      timeBetweenEvictionRunsMillis: 60000
+      ##池中连接空闲时隔多久被回收
+      minEvictableIdleTimeMillis: 30000
+      ##验证使用的sql语句
+      validationQuery: SELECT 1 FROM DUAL
+      ##验证sql语句的超时时间
+      validationQueryTimeout: 10000
+      ##指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      testWhileIdle: true
+      ##借出连接时不要测试，否则很影响性能
+      testOnBorrow: false
+      testOnReturn: false
+      ##连接池使用预处理语句
+      poolPreparedStatements: true
+      ##每个连接最大拥有多少PreparedStatement
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall
+      useGlobalDataSourceStat: true
+      ##连接泄露回收参数
+      removeAbandoned: false
+      filter:
+        commons-log:
+          enabled: true
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 5000
+          merge-sql: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+        allow: null
+        deny: null
+  redis:
+    host: 59.196.230.145
+    port: 8088
+    timeout: 10000
+    jedis:
+      pool:
+        max-active: 10
+        max-wait: 3000
+        max-idle: 2
+
+
+#dubbo配置
+dubbo:
+  config:
+    multiple: true
+  application:
+    name: digital-server
+  registries:
+    digital:
+      address: 59.196.230.145:8087
+      protocol: zookeeper
+      check: false
+      id: gaism
+    fms:
+      address: 59.196.230.135:2182
+      protocol: zookeeper
+      check: false
+      id: fms
+    uums:
+      address: 59.196.230.145:8087
+      protocol: zookeeper
+      check: false
+      id: uums
+  protocol:
+    name: dubbo
+    port: -1
+  scan:
+    base-packages: com.greatmap.digital
+
+logging:
+  config: classpath:logback-spring.xml
+  path: /data/log
+  level.root: info
+
+sign:
+  ca: HBCA
+  hbca:
+    http: http://59.196.229.35:8080/hbcaess/rest/
+
+
