@@ -139,23 +139,20 @@ dubbo:
   config:
     multiple: true
   application:
-    name: digital-provider
+    name: digital-server
   registries:
     digital:
-      address: localhost:2181
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: dc
     fms:
-      #address: 192.168.1.98:2190
-      #address: 192.168.5.233:2181
-      #address: 192.168.5.34:2181
-      address: 192.168.5.222:2181
+      address: 127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  39.100.14.0:2190
+      address:  127.0.0.1:2282
       protocol: zookeeper
       check: false
       id: uums
