@@ -106,7 +106,7 @@ spring:
         login-password: admin
         allow: null
         deny: null
-#dubbo配置
+  #dubbo配置
 dubbo:
   config:
     multiple: true
@@ -114,17 +114,20 @@ dubbo:
     name: digital-provider
   registries:
     digital:
-      address: 127.0.0.1:2282
+      address: localhost:2181
       protocol: zookeeper
       check: false
-      id: gaism
+      id: dc
     fms:
-      address: 127.0.0.1:2282
+      #address: 192.168.1.98:2190
+      #address: 192.168.5.233:2181
+      #address: 192.168.5.34:2181
+      address: 192.168.5.222:2181
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  127.0.0.1:2282
+      address:  39.100.14.0:2190
       protocol: zookeeper
       check: false
       id: uums
@@ -139,7 +142,6 @@ logging:
   path: /data/log
   level.root: info
 
-
 sign:
   ca: HBCA
   hbca:
@@ -148,24 +150,24 @@ sign:
     http: http://117.32.132.78:19000/cloudsign/resource/rest/v1/shared/
 
 wcf:
-  wcfServer: 192.168.5.34:9090
+  wcfServer: 172.26.84.121:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory:  /data/FTP/work/print
+  tempDirectory:  D:/FTP/work/print
   relativePath: estate/documents/register
 
 ftp:
-  host: ftp://192.168.5.222:38333
+  host: ftp://39.98.176.209:38333
   user: ftp
   psw: ftp
-  http: http://192.168.5.34:18080/ftpdirectory
+  http: http://39.98.176.209:8090/print
 
 
 
-tempDirectory: /data/FTP/work/print
+tempDirectory: D:/FTP
 
 dex:
-  dcPublicKey: A9UpigS3bMWtp+1YbjjJvsmE7Uz4FABMgruG4uApBqki
-  dcPrivateKey: AKxdgJ9cOLlJ2WGs4w6GpcHw9TgmFTMKc+X8wmubzMYV
+  dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
+  dcPrivateKey: alwMqjVcfSKyQ4PzRzO2KizDcyGVWo5iD3xPwCcdo1s=
   refreshPublicKey: false
   fetchPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
   mapParams:

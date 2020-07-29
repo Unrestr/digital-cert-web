@@ -50,18 +50,18 @@ temp:
   path: E:/temp/digitalcertificate
 
 wcf:
-  wcfServer: 192.168.5.34:9090
+  wcfServer: 172.26.84.121:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory: /data/FTP/work/print
+  tempDirectory: D:/FTP/work/print
   relativePath: estate/documents/register
 
 ftp:
-  host: ftp://192.168.5.222:38333
+  host: ftp://39.98.176.209:38333
   user: ftp
   psw: ftp
-  http: http://192.168.5.34:18080/ftpdirectory
+  http: http://39.98.176.209:8090/print
 
-tempDirectory: /data/FTP/work/print
+tempDirectory: D:/FTP
 
 # mysql连接池配置
 spring:
@@ -134,25 +134,28 @@ spring:
         max-idle: 2
 
 
-#dubbo配置
+  #dubbo配置
 dubbo:
   config:
     multiple: true
   application:
-    name: digital-server
+    name: digital-provider
   registries:
     digital:
-      address: 127.0.0.1:2282
+      address: localhost:2181
       protocol: zookeeper
       check: false
-      id: gaism
+      id: dc
     fms:
-      address: 127.0.0.1:2282
+      #address: 192.168.1.98:2190
+      #address: 192.168.5.233:2181
+      #address: 192.168.5.34:2181
+      address: 192.168.5.222:2181
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  127.0.0.1:2282
+      address:  39.100.14.0:2190
       protocol: zookeeper
       check: false
       id: uums
