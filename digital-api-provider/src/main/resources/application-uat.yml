@@ -59,11 +59,11 @@ spring:
     password: dzzz
     druid:
       ##初始化连接数
-      initialSize: 5
+      initialSize: 1
       ##最小空闲数
       minIdle: 5
       ##最大活动数
-      maxActive: 20
+      maxActive: 5
       ##最大等待时间
       maxWait: 60000
       ##每60秒运行一次空闲连接回收器
@@ -156,7 +156,7 @@ ftp:
   psw: FTP
   http: http://59.196.230.135:8089/ftpdirectory
 
-tempDirectory: E:/temp/tempDirectory
+tempDirectory: D:/temp/tempDirectory
 
 dex:
   dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
