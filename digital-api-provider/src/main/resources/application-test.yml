@@ -143,8 +143,6 @@ sign:
   ca: HBCA
   hbca:
     http: http://221.232.224.75:8880/hbcaess/rest/
-  sxca:
-    http: http://117.32.132.78:19000/cloudsign/resource/rest/v1/shared/
 
 wcf:
   wcfServer: 172.26.84.121:9090
@@ -158,7 +156,7 @@ ftp:
   psw: ftp
   http: http://39.98.176.209:8090/print
 
-tempDirectory: D:/FTP
+tempDirectory: /data/FTP
 
 dex:
   dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar

@@ -45,23 +45,13 @@ management:
     web:
       base-path: /actuator
 
-
-temp:
-  path: E:/temp/digitalcertificate
-
-wcf:
-  wcfServer: 172.26.84.121:9090
-  estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory: D:/FTP/work/print
-  relativePath: estate/documents/register
-
 ftp:
   host: ftp://39.98.176.209:38333
   user: ftp
   psw: ftp
   http: http://39.98.176.209:8090/print
 
-tempDirectory: D:/FTP
+tempDirectory: /data/FTP
 
 # mysql连接池配置
 spring:
