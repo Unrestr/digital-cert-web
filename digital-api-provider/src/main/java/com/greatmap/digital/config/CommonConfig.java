@@ -51,9 +51,9 @@ public class CommonConfig extends WebMvcConfigurationSupport {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    @Override
+/*    @Override
     protected void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new DateConverter());
         super.addFormatters(registry);
-    }
+    }*/
 }
