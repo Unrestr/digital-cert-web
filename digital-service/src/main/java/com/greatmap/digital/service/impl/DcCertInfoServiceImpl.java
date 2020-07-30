@@ -106,7 +106,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
     @Reference
     private FileUploadService fileUploadService;
 
-    @Reference
+    @Reference(registry = "uums", version = "1.0.0")
     private ISequenceContext sequenceContext;
 
     @Value("${tempDirectory}")
