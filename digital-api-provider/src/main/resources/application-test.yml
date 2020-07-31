@@ -119,7 +119,7 @@ dubbo:
       check: false
       id: dc
     fms:
-      address: 127.0.0.1:2282
+      address: 39.98.176.209:2181
       protocol: zookeeper
       check: false
       id: fms
