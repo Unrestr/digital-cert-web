@@ -37,6 +37,10 @@
                     <artifactId>mybatis-plus-core</artifactId>
                     <groupId>com.baomidou</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>org.mortbay.jetty</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
