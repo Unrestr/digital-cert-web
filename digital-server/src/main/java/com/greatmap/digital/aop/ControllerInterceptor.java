@@ -1,5 +1,6 @@
 package com.greatmap.digital.aop;
 
+import com.alibaba.fastjson.JSON;
 import com.greatmap.digital.util.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -92,10 +93,10 @@ public class ControllerInterceptor {
             String methodName = pjp.getSignature().getName();
             if (ignoreResp) {
                 log.debug(StringUtils
-                        .join("method[", className, "@", methodName, "], 结果为: ", result));
+                        .join("method[", className, "@", methodName, "], 结果为: ", JSON.toJSONString(result)));
             } else {
                 log.info(StringUtils
-                        .join("method[", className, "@", methodName, "], 结果为: ", result));
+                        .join("method[", className, "@", methodName, "], 结果为: ", JSON.toJSONString(result)));
             }
         } catch (Exception e) {
             log.error("打印日志异常", e);
