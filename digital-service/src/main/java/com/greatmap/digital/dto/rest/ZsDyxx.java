@@ -13,6 +13,11 @@ import java.util.Date;
 public class ZsDyxx implements Serializable {
 
     /**
+     *证照编号
+     */
+    private String zzbh;
+
+    /**
      * 简称
      */
     private String jc;
