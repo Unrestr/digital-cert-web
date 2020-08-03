@@ -7,7 +7,7 @@
         <if test="zzlx == 1">
             a.zh bdcqzh,
             b.qlr czzt,
-            b.mj mj,
+            u.mj mj,
         </if>
         <if test="zzlx != 1">
             a.zh bdcdjzmh,
@@ -24,6 +24,7 @@
         </if>
         b
         on a.zzbh = b.zzbh
+        inner join DC_UNIT_INFO u on a.zzbh = u.zzbh
         <where>
             <if test="bfjg!=null and bfjg != ''">
                 and a.djjg = #{bfjg}
@@ -78,6 +79,21 @@
         SELECT ER.MC AS QLRMC,ER.ZJH AS QLRZJH,INFO.ZH AS BDCQZH,INFO.ZZMC AS ZZMC,INFO.BFSJ AS BFSJ,
         INFO.DJJG AS QQBFDJJG,INFO.DJYY AS BFYY,INFO.ZT AS ZT FROM DC_CERT_INFO INFO , DC_RIGHTHOLDER ER
         WHERE INFO.ZZBH = ER.ZZBH
+        <if test="zh != null and zh != ''">
+            AND INFO.ZH = #{zh}
+        </if>
+        <if test="qlrmc != null and qlrmc != ''">
+            AND ER.MC = #{qlrmc}
+        </if>
+        <if test="qlrzjh != null and qlrzjh !=''">
+            AND ER.ZJH = #{qlrzjh}
+        </if>
+    </select>
+
+    <select id="queryCertificateListEx" resultType="com.greatmap.digital.dto.CertificateDto">
+        SELECT ER.MC AS QLRMC,ER.ZJH AS QLRZJH,INFO.ZH AS BDCQZH,INFO.ZZMC AS ZZMC,INFO.BFSJ AS BFSJ,FI.WJID AS PDFID,OFDID AS OFDID,
+        INFO.DJJG AS QQBFDJJG,INFO.DJYY AS BFYY,INFO.ZT AS ZT FROM DC_CERT_INFO INFO , DC_RIGHTHOLDER ER ,DC_CERT_FILE FI
+        WHERE INFO.ZZBH = ER.ZZBH AND FI.ZZBH = INFO.ZZBH
         <if test="zh != null and zh != ''">
             AND INFO.ZH = #{zh}
         </if>

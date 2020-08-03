@@ -195,4 +195,21 @@ public class DownloadCertificateService {
     public List<CertificateDto> queryCertificateList(String zh, String qlrmc, String qlrzjh, String userName, String djjg, String ip) {
         return dcCertInfoMapper.queryCertificateList(zh, qlrmc, qlrzjh);
     }
+
+    public List<Map<String, String>> downloadEx(String pdfId) {
+        byte[] fileByte = fileUploadService.getFileByte(pdfId);
+        if (fileByte == null || fileByte.length == 0) {
+            throw new DigitalThirdException("未获取到文件信息");
+        }
+        String encode = Base64.getEncoder().encodeToString(fileByte);
+        Map<String,String> map = new HashMap<>(1);
+        map.put("zzxx",encode);
+        List<Map<String,String>> mapList = Lists.newArrayList();
+        mapList.add(map);
+        return mapList;
+    }
+
+    public List<CertificateDto> queryCertificateListEx(String qlrmc, String qlrzjh, String zh) {
+        return dcCertInfoMapper.queryCertificateListEx(zh, qlrmc, qlrzjh);
+    }
 }

@@ -50,4 +50,14 @@ public class CertificateDto implements Serializable {
      * 状态
      */
     private String zt;
+
+    /**
+     * pdfId
+     */
+    private String pdfid;
+
+    /**
+     *ofdid
+     */
+    private String ofdid;
 }
