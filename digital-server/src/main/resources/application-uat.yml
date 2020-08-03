@@ -1,8 +1,8 @@
 # 端口
 server:
-  port: 58089
+  port: 58090
   servlet:
-    context-path: /digital-provider
+    context-path: /digital-server
 
 
 #mybaties-plus配置
@@ -25,7 +25,7 @@ mybatis-plus:
       #逻辑删除配置
       logic-delete-value: 0
       logic-not-delete-value: 1
-      db-type: mysql
+      db-type: oracle
     refresh: true
     refresh-mapper: true
   configuration:
@@ -46,24 +46,41 @@ management:
       base-path: /actuator
 
 
+temp:
+  path: D:/temp/digitalcertificate
+
+wcf:
+  wcfServer: 59.196.230.135:8966
+  estatePrintUrl: /MapFunService/EstatePrint
+  tempDirectory: E:/print
+  relativePath: digital
+
+ftp:
+  host: ftp://59.196.230.152:38333
+  user: FTP
+  psw: FTP
+  http: http://59.196.230.135:8089/ftpdirectory
+
+tempDirectory: D:/temp/tempDirectory
+
 # mysql连接池配置
 spring:
   application:
-    name: digital-provider
+    name: digital-server
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@39.98.176.209:1521/orcl
+    url: jdbc:oracle:thin:@59.196.230.152:1521/orcl
     driver-class-name: oracle.jdbc.OracleDriver
-    username: dc
-    password: dc
+    username: dzzz
+    password: dzzz
     druid:
       ##初始化连接数
-      initialSize: 5
+      initialSize: 1
       ##最小空闲数
       minIdle: 5
       ##最大活动数
-      maxActive: 20
+      maxActive: 5
       ##最大等待时间
       maxWait: 60000
       ##每60秒运行一次空闲连接回收器
@@ -106,25 +123,36 @@ spring:
         login-password: admin
         allow: null
         deny: null
-  #dubbo配置
+  redis:
+    host: 59.196.230.145
+    port: 8088
+    timeout: 10000
+    jedis:
+      pool:
+        max-active: 10
+        max-wait: 3000
+        max-idle: 2
+
+
+#dubbo配置
 dubbo:
   config:
     multiple: true
   application:
-    name: digital-provider
+    name: digital-server
   registries:
     digital:
-      address: 127.0.0.1:2282
+      address: 59.196.230.145:8087
       protocol: zookeeper
       check: false
-      id: dc
+      id: gaism
     fms:
-      address: 127.0.0.1:2282
+      address: 59.196.230.135:2182
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address: 127.0.0.1:2282
+      address: 59.196.230.145:8087
       protocol: zookeeper
       check: false
       id: uums
@@ -142,26 +170,6 @@ logging:
 sign:
   ca: HBCA
   hbca:
-    http: http://221.232.224.75:8880/hbcaess/rest/
+    http: http://59.196.229.35:8080/hbcaess/rest/
 
-wcf:
-  wcfServer: 172.26.84.121:9090
-  estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory:  D:/FTP/work/print
-  relativePath: estate/documents/register
 
-ftp:
-  host: ftp://39.98.176.209:38333
-  user: ftp
-  psw: ftp
-  http: http://39.98.176.209:8090/print
-
-tempDirectory: /data/FTP
-
-dex:
-  dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
-  dcPrivateKey: alwMqjVcfSKyQ4PzRzO2KizDcyGVWo5iD3xPwCcdo1s=
-  refreshPublicKey: false
-  fetchPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
-  mapParams:
-    senderID: WSXXBBDCCS2020528

@@ -1,6 +1,7 @@
 package com.greatmap.digital.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.baomidou.mybatisplus.enums.SqlLike;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -68,14 +69,14 @@ public class DcCertTemplateServiceImpl extends ServiceImpl<DcCertTemplateMapper,
 
     @Override
     public Page<DcCertTemplate> listTemplate(Page<DcCertTemplate> page, String qxmc, String mbbs) {
-        EntityWrapper<DcCertTemplate> dcCertTemplateEntityWrapper = new EntityWrapper<>();
+        Wrapper<DcCertTemplate> wrapper = new EntityWrapper<DcCertTemplate>().orderBy("cjsj");
         if (StringUtils.isNotBlank(qxmc)) {
-            dcCertTemplateEntityWrapper.eq("qxmc", qxmc);
+            wrapper.like("qxmc", qxmc.replaceAll("(0)+$", ""), SqlLike.RIGHT);
         }
         if (StringUtils.isNotBlank(mbbs)) {
-            dcCertTemplateEntityWrapper.eq("mbbs", mbbs);
+            wrapper.eq("mbbs", mbbs);
         }
-        return selectPage(page, dcCertTemplateEntityWrapper);
+        return selectPage(page, wrapper);
     }
 
     @Override
@@ -208,4 +209,5 @@ public class DcCertTemplateServiceImpl extends ServiceImpl<DcCertTemplateMapper,
         }
         return fileUploadService.uploadByByte(fileName, pdfFiles);
     }
+
 }
