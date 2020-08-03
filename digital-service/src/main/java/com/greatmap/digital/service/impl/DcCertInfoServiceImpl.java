@@ -222,6 +222,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         if (certDto.getZzlx().equals(ZS)) {
             //证书
             certDto.getZsxx().setZh(zh);
+            certDto.getZsxx().setZzbh(certDto.getZzbh());
             pdf = printService.printPDF(certDto.getZsxx(), certTemplate.getMbbs(), true);
         } else if (certDto.getZzlx().equals(ZM)) {
             //证明
@@ -494,6 +495,8 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         dcCertInfo.setYwh(certDto.getYwh());
         //登记时间
         dcCertInfo.setDjsj(jcxx.getDjsj());
+        //颁发时间
+        dcCertInfo.setBfsj(new Date());
         //登记原因
         dcCertInfo.setDjyy(jcxx.getDjyy());
         //登记机构代码

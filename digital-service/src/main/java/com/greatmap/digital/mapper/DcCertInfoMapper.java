@@ -61,4 +61,13 @@ public interface DcCertInfoMapper extends BaseMapper<DcCertInfo> {
      * @return
      */
     List<CertificateDto> queryCertificateList(@Param("zh") String zh, @Param("qlrmc") String qlrmc, @Param("qlrzjh") String qlrzjh);
+
+    /**
+     * 获取证照信息 带文件
+     * @param zh
+     * @param qlrmc
+     * @param qlrzjh
+     * @return
+     */
+    List<CertificateDto> queryCertificateListEx(@Param("zh")String zh,  @Param("qlrmc")String qlrmc, @Param("qlrzjh")String qlrzjh);
 }
