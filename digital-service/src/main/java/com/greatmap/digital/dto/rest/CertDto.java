@@ -92,4 +92,9 @@ public class CertDto implements Serializable {
      */
     private String ywh;
 
+    /**
+     * 证照编号
+     */
+    private String zzbh;
+
 }
