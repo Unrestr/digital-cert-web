@@ -536,7 +536,6 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
      * @param file
      * @return
      */
-    @Override
     public FileInfo signValid(String templateId, File file) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("templateIds", templateId);
