@@ -737,7 +737,7 @@ public class OFDDocTest {
         virtualPage.getStyle().setMargin(0d);
 
 
-        Path imgPath = Paths.get("src/test/resources", "testimg.png");
+        Path imgPath = Paths.get("src/test/resources", "证书国徽.jpg");
         //创建IMG对象，引入图片
         Img img = new Img(imgPath);
 
