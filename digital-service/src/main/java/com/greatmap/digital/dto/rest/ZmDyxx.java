@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class ZmDyxx implements Serializable {
 
     /**
-     *证明编号
+     *证照编号
      */
     private String zzbh;
 

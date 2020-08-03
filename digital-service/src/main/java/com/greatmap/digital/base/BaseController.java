@@ -11,6 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.session.InvalidSessionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.validation.BindException;
@@ -25,12 +27,16 @@ import java.sql.SQLException;
  */
 public abstract class BaseController extends BaseRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+
     @ExceptionHandler(Exception.class)
     @Override
     public RestResult exceptionHandler(Exception exception) {
         exception.printStackTrace();
         exception.getStackTrace();
-        String msg = "电子证照平台服务异常";
+        String msg = "电子登记平台服务异常";
+        logger.error("系统出现异常", exception);
         RestResult restResult = commonExceptionHandler(exception);
         restResult = restResult != null ? restResult : rpcExceptionHandler(exception);
         if (restResult != null) {
@@ -49,6 +55,7 @@ public abstract class BaseController extends BaseRestController {
      * @return
      */
     private RestResult commonExceptionHandler(Exception exception) {
+        logger.error("系统出现异常", exception);
         if (exception instanceof DigitalException) {
             DigitalException digitalException = (DigitalException) exception;
             return new RestResult(digitalException.getMessage(), ExceptionUtils.getStackTrace(digitalException));
@@ -90,9 +97,10 @@ public abstract class BaseController extends BaseRestController {
      * @param e
      * @return
      */
-    private RestResult rpcExceptionHandler(Exception e) {
-        if (e instanceof RuntimeException) {
-            String exceptionMessage = e.getMessage();
+    private RestResult rpcExceptionHandler(Exception exception) {
+        logger.error("系统出现异常", exception);
+        if (exception instanceof RuntimeException) {
+            String exceptionMessage = exception.getMessage();
             exceptionMessage = StringUtils.substringBetween(exceptionMessage, "Caused by:", System.lineSeparator());
             if (StringUtils.isBlank(exceptionMessage)) {
                 return null;
@@ -107,9 +115,9 @@ public abstract class BaseController extends BaseRestController {
                 Object o = ClassUtil.newInstance(exceptionClassName);
                 if (o instanceof SQLException) {
                     String message = StringUtils.substringAfter(exceptionMessage, ":");
-                    return renderException(message, e.getMessage());
+                    return renderException(message, exception.getMessage());
                 }
-            } catch (Exception exception) {
+            } catch (Exception e) {
                 return null;
             }
         }
