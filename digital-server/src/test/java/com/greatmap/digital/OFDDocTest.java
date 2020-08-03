@@ -1,5 +1,7 @@
 package com.greatmap.digital;
 
+import com.greatmap.digital.dto.rest.ZsDyxx;
+import com.greatmap.digital.util.StringUtils;
 import org.dom4j.DocumentException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -268,14 +270,14 @@ public class OFDDocTest {
                     "大陆在那头\n";
             Span titleContent = new Span("乡愁").setBold(true).setFontSize(13d).setLetterSpacing(20d);
             Paragraph title = new Paragraph().add(titleContent);
-            title.setFloat(AFloat.center).setMarginBottom(5d);
+            title.setFloat(AFloat.center).setMarginBottom(5d).setBorder(0.1d);
             ofdDoc.add(title);
             final String[] txtCollect = plaintext.split("\\\n");
             for (String txt : txtCollect) {
                 Paragraph p = new Paragraph().setFontSize(4d)
                         .setLineSpace(10d)
                         .add(txt);
-                p.setFloat(AFloat.center);
+                p.setFloat(AFloat.center).setBorder(0.1d);
                 ofdDoc.add(p);
             }
         }
@@ -680,110 +682,548 @@ public class OFDDocTest {
     @Test
     public void testDrawZs() throws Exception{
         Path path = Paths.get("target/drawZs.ofd").toAbsolutePath();
+
+        ZsDyxx zsDyxx = new ZsDyxx();
+        zsDyxx.setJc("甘");
+        zsDyxx.setNf("2020");
+        zsDyxx.setX("凉州区");
+        zsDyxx.setBh("0008145");
+        zsDyxx.setDjsj("2018-02-12");
+        zsDyxx.setQlr("张三");
+        zsDyxx.setGyqk("单独所有");
+        zsDyxx.setBdcqzh("甘（2020）凉州区不动产权证明第0008145号");
+        zsDyxx.setZl("XX县XX镇XX村");
+        zsDyxx.setBdcdyh("130637008004GB00008F00040090");
+        zsDyxx.setQllx("权利类型");
+        zsDyxx.setQlxz("权利性质");
+        zsDyxx.setYt("用途");
+        zsDyxx.setMj("面积");
+        zsDyxx.setSyqx("使用期限");
+        zsDyxx.setQlqtzk("权利其他状况");
+        zsDyxx.setFj("附记");
+        zsDyxx.setCxewm("fdsfdafddsafa");
+
         //创建OFDDoc对象
         try (OFDDoc ofdDoc = new OFDDoc(path)) {
             //创建虚拟页面对象
-            VirtualPage virtualPage = new VirtualPage(167.0d, 240.0d);
-            //创建最外层DIV，设置背景色
-            Div div = new Div(167.0d, 240.0d)
-                    .setPosition(Position.Absolute)
-                    .setX(0d)
-                    .setY(0d)
-                    .setBackgroundColor(255, 0, 0)
-                    .setBorder(0.353)
-                    .setClear(Clear.none)
-                    .setFloat(AFloat.center);
-            virtualPage.add(div);
-            virtualPage.getStyle().setMargin(0d);
-
-
-            Path imgPath = Paths.get("src/test/resources", "testimg.png");
-            //创建IMG对象，引入图片
-            Img img = new Img(imgPath);
-
-            img.setPosition(Position.Absolute)
-                    .setX(55d).setY(48d);
-            img.setHeight(56d);
-            img.setWidth(60.5d);
-            img.setBorder(0d);
-            img.setPadding(0d);
-            virtualPage.add(img);
-
-            //创建段落对象，设置文字属性
             Font font = FontSet.get(FontName.NotoSerifBold);
-            Span span = new Span("中华人民共和国")
-                            .setFont(font)
-                            .setFontSize(8d)
-                            .setLetterSpacing(5d);
-            Paragraph p = new Paragraph(114.0d,19.5d);
-            p.setFloat(AFloat.center);
-            p.setPosition(Position.Absolute);
-            p.setX(33.0d);
-            p.setY(145.0d);
-            p.setPadding(0.0);
-            p.setMargin(0.0);
-            p.add(span);
-            virtualPage.add(p);
 
-            span = new Span("不动产权证书")
-                    .setFont(font)
-                    .setFontSize(8d)
-                    .setLetterSpacing(7d);
-            p = new Paragraph(95.0d,16.5d);
-            p.setFloat(AFloat.center);
-            p.setPosition(Position.Absolute);
-            p.setX(36.0d);
-            p.setY(182.0d);
-            p.setPadding(0.0);
-            p.setMargin(0.0);
-            p.add(span);
-            virtualPage.add(p);
+            drawFirstPage(ofdDoc,font);
 
-            ofdDoc.addVPage(virtualPage);
+            drawSecondPage(ofdDoc,font,zsDyxx);
 
-            VirtualPage virtualPage2 = new VirtualPage(167.0d, 240.0d);
-            Div div2 = new Div(167.0d, 240.0d)
-                    .setPosition(Position.Absolute)
-                    .setX(0d)
-                    .setY(0d)
-                    .setBackgroundColor(255, 255, 255)
-                    .setBorder(0.353)
-                    .setClear(Clear.none)
-                    .setFloat(AFloat.center);
-            virtualPage2.add(div2);
+            drawThirdPage(ofdDoc,font,zsDyxx);
 
-            Div div3 = new Div(146.5d, 220.0d)
-                    .setPosition(Position.Absolute)
-                    .setX(10d)
-                    .setY(10d)
-                    .setBackgroundColor(255, 255, 255)
-                    .setBorder(0.353)
-                    .setClear(Clear.none)
-                    .setFloat(AFloat.center);
-            virtualPage2.add(div3);
+            drawFourthPage(ofdDoc,font,zsDyxx);
 
-            virtualPage2.getStyle().setMargin(0d);
-
-            String plaintext = "   根据《中华人民共和国物权法》等法律 " +
-                    "法规，为保护不动产权利人合法权益，对 " +
-                    "不动产权利人申请登记的本证所列不动产 " +
-                    "权利，经审查核实，准予登记，颁发此证 " +
-                    " ";
-            Paragraph tempP = new Paragraph().setFontSize(3d)
-                    .setLineSpace(8d)
-                    .add(plaintext);
-            tempP.setPosition(Position.Absolute)
-                    .setWidth(102.5d)
-                    .setHeight(60d)
-                    .setX(32d)
-                    .setY(65d);
-            tempP.setFloat(AFloat.center);
-            virtualPage2.add(tempP);
-
-            ofdDoc.addVPage(virtualPage2);
+            drawFifthPage(ofdDoc,font,zsDyxx);
 
         }
         System.out.println("生成文档位置：" + path.toAbsolutePath());
+    }
+
+    public void drawFirstPage(OFDDoc ofdDoc,Font font) throws Exception{
+        VirtualPage virtualPage = new VirtualPage(167.0d, 240.0d);
+        //创建最外层DIV，设置背景色
+        Div div = new Div(167.0d, 240.0d)
+                .setPosition(Position.Absolute)
+                .setX(0d)
+                .setY(0d)
+                .setBackgroundColor(141, 29, 43)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage.add(div);
+        virtualPage.getStyle().setMargin(0d);
+
+
+        Path imgPath = Paths.get("src/test/resources", "证书国徽.jpg");
+        //创建IMG对象，引入图片
+        Img img = new Img(imgPath);
+
+        img.setPosition(Position.Absolute)
+                .setX(55d).setY(48d);
+        img.setHeight(56d);
+        img.setWidth(60.5d);
+        img.setBorder(0d);
+        img.setPadding(0d);
+        virtualPage.add(img);
+
+        //创建段落对象，设置文字属性
+        Span span = new Span("中华人民共和国")
+                .setFont(font)
+                .setFontSize(8d)
+                .setLetterSpacing(5d);
+        Paragraph p = new Paragraph(114.0d,19.5d);
+        p.setFloat(AFloat.center);
+        p.setPosition(Position.Absolute);
+        p.setX(33.0d);
+        p.setY(145.0d);
+        p.setPadding(0.0);
+        p.setMargin(0.0);
+        p.add(span);
+        virtualPage.add(p);
+
+        span = new Span("不动产权证书")
+                .setFont(font)
+                .setFontSize(8d)
+                .setLetterSpacing(7d);
+        p = new Paragraph(95.0d,16.5d);
+        p.setFloat(AFloat.center);
+        p.setPosition(Position.Absolute);
+        p.setX(36.0d);
+        p.setY(182.0d);
+        p.setPadding(0.0);
+        p.setMargin(0.0);
+        p.add(span);
+        virtualPage.add(p);
+
+        ofdDoc.addVPage(virtualPage);
+    }
+
+    public void drawSecondPage(OFDDoc ofdDoc,Font font,ZsDyxx zsDyxx) throws Exception{
+        VirtualPage virtualPage2 = new VirtualPage(167.0d, 240.0d);
+        Div div2 = new Div(167.0d, 240.0d)
+                .setPosition(Position.Absolute)
+                .setX(0d)
+                .setY(0d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage2.add(div2);
+
+        Div div3 = new Div(146.5d, 220.0d)
+                .setPosition(Position.Absolute)
+                .setX(10d)
+                .setY(10d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage2.add(div3);
+
+        virtualPage2.getStyle().setMargin(0d);
+
+        Paragraph tempP = new Paragraph().setLineSpace(8d);
+        tempP.setPosition(Position.Absolute)
+                .setWidth(102.5d)
+                .setHeight(72.5d)
+                .setX(32d)
+                .setY(65d);
+        tempP.setFloat(AFloat.center);
+
+        Span tempSpan = new Span("  根据《中华人民共和国物权法》等法律 ")
+                .setFont(font)
+                .setFontSize(3d)
+                .setLetterSpacing(2d);
+        tempP.add(tempSpan);
+
+        tempSpan = new Span("法规，为保护不动产权利人合法权益，对 ")
+                .setFont(font)
+                .setFontSize(3d)
+                .setLetterSpacing(2d);
+        tempP.add(tempSpan);
+
+        tempSpan = new Span("不动产权利人申请登记的本证所列不动产 ")
+                .setFont(font)
+                .setFontSize(3d)
+                .setLetterSpacing(2d);
+        tempP.add(tempSpan);
+
+        tempSpan = new Span("权利，经审查核实，准予登记，颁发此证 ")
+                .setFont(font)
+                .setFontSize(3d)
+                .setLetterSpacing(2d);
+        tempP.add(tempSpan);
+
+        virtualPage2.add(tempP);
+
+        Path ewmImgPath = Paths.get("src/test/resources", "testimg.png");
+        Img ewmImg = new Img(ewmImgPath);
+
+        ewmImg.setPosition(Position.Absolute)
+                .setX(20d).setY(152.5d);
+        ewmImg.setHeight(30d);
+        ewmImg.setWidth(25d);
+        ewmImg.setBorder(0d);
+        ewmImg.setPadding(0d);
+        virtualPage2.add(ewmImg);
+
+        Div tempDiv = new Div();
+        tempDiv.setPosition(Position.Absolute)
+                .setWidth(42d)
+                .setHeight(45d)
+                .setX(91.5d)
+                .setY(137.5d);
+        virtualPage2.add(tempDiv);
+
+        tempP = new Paragraph().setLineSpace(8d);
+        tempP.setPosition(Position.Absolute)
+                .setWidth(42d)
+                .setHeight(45d)
+                .setX(91.5d)
+                .setY(152.5d);
+        tempP.setFloat(AFloat.center);
+
+        tempSpan = new Span("登记机构（章）")
+                .setFont(font)
+                .setFontSize(3d)
+                .setLetterSpacing(1d)
+                .setLinebreak(true);
+        tempP.add(tempSpan);
+
+        String djsjSpanText = "";
+        if(StringUtils.isNotBlank(zsDyxx.getDjsj())){
+            String[] djsjArr = zsDyxx.getDjsj().split("-");
+            if(djsjArr.length == 3){
+                djsjSpanText = djsjArr[0] + "年" + djsjArr[1] + "月" + djsjArr[2] + "日";
+            }
+        }
+
+        tempSpan = new Span(djsjSpanText)
+                .setFont(font)
+                .setFontSize(3d)
+                .setLetterSpacing(1d)
+                .setLinebreak(true);
+        tempP.add(tempSpan);
+        virtualPage2.add(tempP);
+
+        tempP = new Paragraph("中华人民共和国自然资源部监制").setLineSpace(2d);
+        tempP.setPosition(Position.Absolute)
+                .setWidth(90d)
+                .setHeight(11d)
+                .setX(42d)
+                .setY(190d);
+        tempP.setFloat(AFloat.center);
+        virtualPage2.add(tempP);
+
+        tempP = new Paragraph("编号 No                 ").setLineSpace(2d);
+        tempP.setPosition(Position.Absolute)
+                .setWidth(59d)
+                .setHeight(11d)
+                .setX(49d)
+                .setY(201d);
+        tempP.setFloat(AFloat.center);
+        virtualPage2.add(tempP);
+
+
+        ofdDoc.addVPage(virtualPage2);
+    }
+
+    public void drawThirdPage(OFDDoc ofdDoc,Font font,ZsDyxx zsDyxx){
+        VirtualPage virtualPage3 = new VirtualPage(167.0d, 240.0d);
+        Div div4 = new Div(167.0d, 240.0d)
+                .setPosition(Position.Absolute)
+                .setX(0d)
+                .setY(0d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage3.add(div4);
+
+        String bdcqzhText = "  （     ）   不动产权第    号  ";
+        if(StringUtils.isNotBlank(zsDyxx.getJc()) && StringUtils.isNotBlank(zsDyxx.getNf())
+                && StringUtils.isNotBlank(zsDyxx.getX()) && StringUtils.isNotBlank(zsDyxx.getBh())){
+            bdcqzhText = zsDyxx.getJc() + "（" + zsDyxx.getNf() + "）" + zsDyxx.getX() + "不动产权第" + zsDyxx.getBh() + "号";
+        }
+
+        Paragraph threeTempPara = new Paragraph(bdcqzhText)
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(105d)
+                .setHeight(10.5d)
+                .setX(40.5d)
+                .setY(15d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph();
+        Span tempSpan = new Span("权利人").setFont(font).setFontSize(3d).setLetterSpacing(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(25.5d).setBorder(0.1d);
+        threeTempPara.add(tempSpan);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph();
+        tempSpan = new Span(zsDyxx.getQlr()).setFont(font).setFontSize(3d).setLetterSpacing(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(25.5d).setBorder(0.1d);
+        threeTempPara.add(tempSpan);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph();
+        tempSpan = new Span("共有情况").setFont(font).setFontSize(3d).setLetterSpacing(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(39d).setBorder(0.1d);
+        threeTempPara.add(tempSpan);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph();
+        tempSpan = new Span(zsDyxx.getGyqk()).setFont(font).setFontSize(3d).setLetterSpacing(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(39d).setBorder(0.1d);
+        threeTempPara.add(tempSpan);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("坐落")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(52.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getZl())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(52.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("不动产单元号")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(66d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getBdcdyh())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(66d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("权利类型")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(79.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getQllx())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(79.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("权利性质")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(93d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getQlxz())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(93d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("用途")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(106.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getYt())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(106.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("面积")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(120d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getMj())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(120d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("使用期限")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(13.5d)
+                .setX(17.5d)
+                .setY(133.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getSyqx())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(13.5d)
+                .setX(42.5d)
+                .setY(133.5d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph("权利其他状况")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(75.5d)
+                .setX(17.5d)
+                .setY(147d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        threeTempPara = new Paragraph(zsDyxx.getQlqtzk())
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        threeTempPara.setPosition(Position.Absolute)
+                .setWidth(108d)
+                .setHeight(75.5d)
+                .setX(42.5d)
+                .setY(147d).setBorder(0.1d);
+        threeTempPara.setFloat(AFloat.center);
+        virtualPage3.add(threeTempPara);
+
+        ofdDoc.addVPage(virtualPage3);
+    }
+
+    public void drawFourthPage(OFDDoc ofdDoc,Font font,ZsDyxx zsDyxx){
+        VirtualPage virtualPage4 = new VirtualPage(167.0d, 240.0d);
+        Div div5 = new Div(167.0d, 240.0d)
+                .setPosition(Position.Absolute)
+                .setX(0d)
+                .setY(0d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage4.add(div5);
+
+        Paragraph fourTempPara = new Paragraph("附     记")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        fourTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(8d)
+                .setX(70d)
+                .setY(15d);
+        fourTempPara.setFloat(AFloat.center);
+        virtualPage4.add(fourTempPara);
+
+        Div div6 = new Div(133.0d, 197.0d)
+                .setPosition(Position.Absolute)
+                .setX(17.5d)
+                .setY(25.5d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage4.add(div6);
+
+        ofdDoc.addVPage(virtualPage4);
+    }
+
+    public void drawFifthPage(OFDDoc ofdDoc,Font font,ZsDyxx zsDyxx){
+        VirtualPage virtualPage5 = new VirtualPage(167.0d, 240.0d);
+        Div div6 = new Div(167.0d, 240.0d)
+                .setPosition(Position.Absolute)
+                .setX(0d)
+                .setY(0d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage5.add(div6);
+
+        Paragraph fiveTempPara = new Paragraph("附  图  页")
+                .setDefaultFont(font).setFontSize(3d).setLineSpace(2d);
+        fiveTempPara.setPosition(Position.Absolute)
+                .setWidth(25d)
+                .setHeight(8d)
+                .setX(72d)
+                .setY(15d);
+        fiveTempPara.setFloat(AFloat.center);
+        virtualPage5.add(fiveTempPara);
+
+        Div div7 = new Div(133.0d, 197.0d)
+                .setPosition(Position.Absolute)
+                .setX(17.5d)
+                .setY(25.5d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage5.add(div7);
+
+        Div div8 = new Div(123.0d, 187.0d)
+                .setPosition(Position.Absolute)
+                .setX(22.5d)
+                .setY(30.5d)
+                .setBackgroundColor(255, 255, 255)
+                .setBorder(0.353)
+                .setClear(Clear.none)
+                .setFloat(AFloat.center);
+        virtualPage5.add(div8);
+
+        ofdDoc.addVPage(virtualPage5);
     }
 
 }
