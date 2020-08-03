@@ -1,5 +1,9 @@
 package com.greatmap.digital;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ofdrw.layout.OFDDoc;
@@ -12,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.FileInputStream;
 import java.math.BigInteger;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
@@ -38,7 +43,6 @@ public class DigitalServiceTest {
     }
 
     @Test
-
     public void testFileHashCode() throws Exception{
         MessageDigest md = MessageDigest.getInstance("MD5");
         String filePath = "C:\\Users\\15827\\Desktop\\不动产权证书.pdf";
@@ -52,6 +56,20 @@ public class DigitalServiceTest {
         byte[] md5Bytes  = md.digest();
         BigInteger bigInt = new BigInteger(1, md5Bytes);//1代表绝对值
         System.out.println("文件hash值为：" + bigInt.toString(16));
+    }
+
+    @Test
+    public void testGenerateQRCodeImage() throws Exception{
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+
+        String text = "宁夏演示";
+
+        BitMatrix bitMatrix = qrCodeWriter.encode(new String(text.getBytes("UTF-8"), "ISO-8859-1"), BarcodeFormat.QR_CODE, 350, 350);
+
+        Path path = FileSystems.getDefault().getPath("C:\\Users\\15827\\Desktop\\testQRCode.PNG");
+
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
 
 }
