@@ -1,6 +1,11 @@
 package com.greatmap.digital;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.greatmap.digital.dto.rest.ZsDyxx;
+import com.greatmap.digital.util.SnowFlakeIdWorker;
 import com.greatmap.digital.util.StringUtils;
 import org.dom4j.DocumentException;
 import org.junit.Test;
@@ -29,11 +34,14 @@ import org.ofdrw.pkg.container.DocDir;
 import org.ofdrw.pkg.container.OFDDir;
 import org.ofdrw.pkg.container.PageDir;
 import org.ofdrw.reader.OFDReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -42,6 +50,9 @@ import java.time.LocalDate;
 @ActiveProfiles("dev")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class OFDDocTest {
+
+    @Autowired
+    private SnowFlakeIdWorker snowFlakeIdWorker;
 
     /**
      * 向文件中加入附件文件
@@ -701,7 +712,7 @@ public class OFDDocTest {
         zsDyxx.setSyqx("使用期限");
         zsDyxx.setQlqtzk("权利其他状况");
         zsDyxx.setFj("附记");
-        zsDyxx.setCxewm("fdsfdafddsafa");
+        zsDyxx.setCxewm("宁夏电子证照演示生成二维码");
 
         //创建OFDDoc对象
         try (OFDDoc ofdDoc = new OFDDoc(path)) {
@@ -710,7 +721,7 @@ public class OFDDocTest {
 
             drawFirstPage(ofdDoc,font);
 
-            drawSecondPage(ofdDoc,font,zsDyxx);
+            drawSecondPage(ofdDoc, font, zsDyxx);
 
             drawThirdPage(ofdDoc,font,zsDyxx);
 
@@ -839,16 +850,39 @@ public class OFDDocTest {
 
         virtualPage2.add(tempP);
 
-        Path ewmImgPath = Paths.get("src/test/resources", "testimg.png");
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+
+        String text = zsDyxx.getCxewm();
+
+        BitMatrix bitMatrix = qrCodeWriter.encode(new String(text.getBytes("UTF-8"), "ISO-8859-1"),
+                BarcodeFormat.QR_CODE, 50, 45);
+
+        String qrCodeImgFile = snowFlakeIdWorker.nextId() + ".PNG";
+
+        //前提保证系统存在 D:\tempDir\qrCodeFile 路径
+        Path path = FileSystems.getDefault().getPath("D:\\tempDir\\qrCodeFile\\"+qrCodeImgFile);
+
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+
+        Path ewmImgPath = Paths.get(path.toString());
         Img ewmImg = new Img(ewmImgPath);
 
         ewmImg.setPosition(Position.Absolute)
                 .setX(20d).setY(152.5d);
-        ewmImg.setHeight(30d);
-        ewmImg.setWidth(25d);
+        ewmImg.setHeight(50d);
+        ewmImg.setWidth(45d);
         ewmImg.setBorder(0d);
         ewmImg.setPadding(0d);
         virtualPage2.add(ewmImg);
+
+        //TODO 目前删除失败
+        if(StringUtils.isNotBlank(path.toString())){
+            File file = new File(path.toString());
+            if(file.exists() && !file.isDirectory() && file.isFile()){
+                boolean delete = file.delete();
+                System.out.println("文件是否删除成功：" + delete);
+            }
+        }
 
         Div tempDiv = new Div();
         tempDiv.setPosition(Position.Absolute)
@@ -893,7 +927,7 @@ public class OFDDocTest {
         tempP.setPosition(Position.Absolute)
                 .setWidth(90d)
                 .setHeight(11d)
-                .setX(42d)
+                .setX(72d)
                 .setY(190d);
         tempP.setFloat(AFloat.center);
         virtualPage2.add(tempP);
@@ -902,7 +936,7 @@ public class OFDDocTest {
         tempP.setPosition(Position.Absolute)
                 .setWidth(59d)
                 .setHeight(11d)
-                .setX(49d)
+                .setX(79d)
                 .setY(201d);
         tempP.setFloat(AFloat.center);
         virtualPage2.add(tempP);
