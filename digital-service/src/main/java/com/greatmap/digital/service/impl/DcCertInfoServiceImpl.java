@@ -237,7 +237,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         HttpUtil.downloadFile(pdf, FileUtil.file(tempDir));
         String pdfTemp = null;
         try {
-            pdfTemp = tempDir + File.separator + URLEncoder.encode(file.getName(), StandardCharsets.UTF_8.name());
+            pdfTemp = tempDir + File.separator + URLEncoder.encode(file .getName(), StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
             logger.error("文件编码失败", e);
             throw new DigitalThirdException("文件编码失败!", e);
@@ -322,7 +322,15 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
             dcPropertyPrintMapper.delete(new EntityWrapper<DcPropertyPrint>().eq("ZZBH",subZzbh));
             dcRegistrationPrintMapper.delete(new EntityWrapper<DcRegistrationPrint>().eq("ZZBH",subZzbh));
         }
-        String zzbh = IdWorker.getIdStr();
+
+        //第三方传过来则用第三方证照编号  否则用自己
+        String zzbh = null;
+        if (StringUtils.isNotBlank(certDto.getZzbh())) {
+            zzbh = certDto.getZzbh();
+        }else {
+            zzbh = IdWorker.getIdStr();
+        }
+
         String zzbsm = IdWorker.getIdStr();
         //证照标识码
         // String zzbsm = sequenceContext.apply("MsgID");
@@ -336,10 +344,11 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         //保存权利人信息
         List<DcRightholder> dcRightholders = saveRightHolder(certDto);
         //设置证照编号
-        dcRightholders.forEach(m -> m.setZzbh(zzbh));
+        String finalZzbh = zzbh;
+        dcRightholders.forEach(m -> m.setZzbh(finalZzbh));
         //保存单元信息
         List<DcUnitInfo> dcUnitInfos = saveUnitInfo(certDto);
-        dcUnitInfos.forEach(m -> m.setZzbh(zzbh));
+        dcUnitInfos.forEach(m -> m.setZzbh(finalZzbh));
         //处理关联关系
         DcCertAssotype certAssoType = saveAssotype(certDto);
         certAssoType.setZzbh(zzbh);
@@ -516,6 +525,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
                 updateById(yCrtInfo);
             }
         }
+
         return dcCertInfo;
     }
 
@@ -526,7 +536,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
      * @param file
      * @return
      */
-    private FileInfo signValid(String templateId, File file) {
+    public FileInfo signValid(String templateId, File file) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("templateIds", templateId);
         //获取带签章PDF
