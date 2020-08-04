@@ -20,6 +20,7 @@ import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -182,10 +183,9 @@ public class RestApi extends BaseController {
         }
         byte[] result = downloadCertificateService.downloadEx(pdfId);
         if (ArrayUtils.isNotEmpty(result)) {
-            response.setHeader("Content-Disposition", "attachment;filename=" + System.currentTimeMillis() + ".pdf");
             response.setContentType("application/pdf");
             try {
-                response.getOutputStream().write(result);
+                FileCopyUtils.copy(result,response.getOutputStream());
             } catch (Exception e) {
                 throw new DigitalThirdException("下载失败", e);
             }
