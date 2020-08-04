@@ -4,6 +4,7 @@ package com.greatmap.digital.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.baomidou.mybatisplus.enums.SqlLike;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -62,13 +63,13 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
      * @return
      */
     @Override
-    public Page<DcSealRule> getSealTemplatePageList(Page<DcSealRule> page, String qzgzmc, String qxdm,String zt) {
+    public Page<DcSealRule> getSealTemplatePageList(Page<DcSealRule> page, String qzgzmc, String qxdm, String zt) {
         if (StringUtils.isBlank(qxdm)) {
             throw new DigitalException(String.format("区县代码不能为空！"));
         }
         Wrapper<DcSealRule> we = wrapper(qzgzmc, qxdm);
-        if(StringUtils.isNotBlank(zt)){
-            we.eq("ZT",zt);
+        if (StringUtils.isNotBlank(zt)) {
+            we.eq("ZT", zt);
         }
         return selectPage(page, we);
     }
@@ -139,7 +140,7 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
             map.put("templateId", gzh);
         }*/
         String qzxx = dcSealRule.getQzxx();
-        if(StringUtils.isNotBlank(qzxx)){
+        if (StringUtils.isNotBlank(qzxx)) {
             String gzh = JSONObject.parseObject(qzxx).getString("gzh");
             map.put("templateId", gzh);
         }
@@ -148,7 +149,7 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
         if (restResult.isSuccess()) {
             DcSealRule dcSealRule1 = new DcSealRule();
             dcSealRule1.setZt("0");
-            update(dcSealRule1,we.eq("ID", qzgzid));
+            update(dcSealRule1, we.eq("ID", qzgzid));
         }
         return re;
     }
@@ -203,7 +204,7 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
      * @return
      */
     @Override
-    public Page<SealDto> getSealPageList(RestResult restResult, Integer pageNo, Integer pageSize, String sealId, String sealName, String status, String bindingState , Date startDate, Date endDate) {
+    public Page<SealDto> getSealPageList(RestResult restResult, Integer pageNo, Integer pageSize, String sealId, String sealName, String status, String bindingState, Date startDate, Date endDate) {
         Map<String, Object> params = Maps.newHashMap();
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);
@@ -211,15 +212,15 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
         params.put("sealName", sealName);
         params.put("status", status);
         params.put("bindingState", bindingState);
-        SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (startDate != null) {
             params.put("startDate", sdf.format(startDate));
         }
         if (endDate != null) {
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(endDate);
-            calendar.add(Calendar.DATE,1);
-            endDate=calendar.getTime();
+            calendar.add(Calendar.DATE, 1);
+            endDate = calendar.getTime();
             params.put("endDate", sdf.format(endDate));
         }
         String data = HttpUtils.httpPost2(hbcaess_http + URL_GET_SEAL_LIST, params);
@@ -227,7 +228,7 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
         Page<SealDto> sealDtoPage = new Page<>();
         generatePage(sealDtoPage, data);
         JSONObject jsonObject = JSONObject.parseObject(data);
-        if(null == jsonObject){
+        if (null == jsonObject) {
             return sealDtoPage;
         }
         List<SealDto> list = JSONObject.parseArray(jsonObject.getString("list"), SealDto.class);
@@ -353,7 +354,8 @@ public class DcSealRuleServiceImpl extends ServiceImpl<DcSealRuleMapper, DcSealR
             we.eq("QZGZMC", qzgzmc);
         }
         if (StringUtils.isNotBlank(qxdm)) {
-            we.eq("QXDM", qxdm);
+            String str2 = qxdm.replaceAll("(0)+$", "");
+            we.like("QXDM", str2, SqlLike.RIGHT);
         }
         return we;
     }

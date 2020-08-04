@@ -176,6 +176,13 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         List<DcRightInfo> dcRightInfos = dcRightInfoService.selectList(dcRightInfoEntityWrapper);
         if (dcRightInfos != null && dcRightInfos.size() > 0) {
             RightInfoDto rightInfoDto = ReflectUtil.createAndCopyBean(dcRightInfos.get(0), RightInfoDto.class);
+            List<DcRegistrationPrint> registrationPrints = dcRegistrationPrintMapper.selectList(new EntityWrapper<DcRegistrationPrint>().eq("ZZBH", zzbh));
+            List<DcPropertyPrint> propertyPrints = dcPropertyPrintMapper.selectList(new EntityWrapper<DcPropertyPrint>().eq("ZZBH", zzbh));
+            if (CollectionUtil.isNotEmpty(registrationPrints)) {
+                rightInfoDto.setQllx(registrationPrints.get(0).getZmqlhsx());
+            }else if (CollectionUtil.isNotEmpty(propertyPrints)){
+                rightInfoDto.setQllx(propertyPrints.get(0).getQllx());
+            }
             rightInfoDto.setFj(dcRightInfos.get(0).getFj());
             rightInfoDto.setQlqtqk(dcRightInfos.get(0).getQlqtzk());
             rightInfoDto.setSyqq(dcRightInfos.get(0).getSyqqssj());
