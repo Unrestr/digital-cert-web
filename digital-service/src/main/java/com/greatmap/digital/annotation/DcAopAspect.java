@@ -55,7 +55,7 @@ public class DcAopAspect {
                 } else if (StringUtils.equalsAnyIgnoreCase(k, "ip")) {
                     //IP
                     dcSealLog.setIp(ObjectUtil.isNull(v) ? null : v.toString());
-                } else if (StringUtils.equalsAnyIgnoreCase(k, "djjg", "sjjg", "jg")) {
+                } else if (StringUtils.equalsAnyIgnoreCase(k, "djjg", "sjjg", "jg","sljg")) {
                     //机构
                     dcSealLog.setSsjg(ObjectUtil.isNull(v) ? null : v.toString());
                 } else if (StringUtils.equalsAnyIgnoreCase(k, "zh", "bdcqzh", "bdcdjzmh")) {

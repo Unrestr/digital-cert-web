@@ -190,6 +190,9 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         if (dcUnitInfoList != null && dcUnitInfoList.size() > 0) {
             for (DcUnitInfo dcUnitInfo : dcUnitInfoList) {
                 UnitDto unitDto = ReflectUtil.createAndCopyBean(dcUnitInfo, UnitDto.class);
+                unitDto.setTdytdm(dcUnitInfo.getYtdm());
+                unitDto.setMj(dcUnitInfo.getMj());
+                unitDto.setMjdw(dcUnitInfo.getMjdw());
                 dcUnitInfos.add(unitDto);
             }
         }

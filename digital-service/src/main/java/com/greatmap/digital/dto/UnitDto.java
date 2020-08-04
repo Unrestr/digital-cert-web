@@ -30,7 +30,7 @@ public class UnitDto implements Serializable {
     /**
      * 面积
      */
-    private Date mj;
+    private Double mj;
 
     /**
      * 用途代码
