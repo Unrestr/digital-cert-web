@@ -176,6 +176,10 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         List<DcRightInfo> dcRightInfos = dcRightInfoService.selectList(dcRightInfoEntityWrapper);
         if (dcRightInfos != null && dcRightInfos.size() > 0) {
             RightInfoDto rightInfoDto = ReflectUtil.createAndCopyBean(dcRightInfos.get(0), RightInfoDto.class);
+            rightInfoDto.setFj(dcRightInfos.get(0).getFj());
+            rightInfoDto.setQlqtqk(dcRightInfos.get(0).getQlqtzk());
+            rightInfoDto.setSyqq(dcRightInfos.get(0).getSyqqssj());
+            rightInfoDto.setSyqz(dcRightInfos.get(0).getSyqjssj());
             certDetailDto.setRightInfoDto(rightInfoDto);
         }
         //获取不动产单元信息
@@ -227,6 +231,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         } else if (certDto.getZzlx().equals(ZM)) {
             //证明
             certDto.getZmxx().setZh(zh);
+            certDto.getZmxx().setZzbh(certDto.getZzbh());
             pdf = printService.printPDF(certDto.getZmxx(), certTemplate.getMbbs(), true);
         }
         if (org.apache.commons.lang3.StringUtils.isBlank(pdf) || !pdf.endsWith(".pdf")) {
@@ -455,7 +460,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
             //电话
             rightholder.setLxdh(m.getLxdh());
             //人员分类
-            rightholder.setRyfl(m.getQlrfl());
+            rightholder.setRyfl("1");
             //处理共有人
             rightholder.setGyr(m.getGyr());
             rightholder.setGyrzjh(m.getGyrzjh());
