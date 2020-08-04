@@ -12,6 +12,7 @@
         <if test="zzlx != 1">
             a.zh bdcdjzmh,
             b.qlr czzt,
+            u.mj mj,
         </if>
         b.zl zl
         from dc_cert_info a
