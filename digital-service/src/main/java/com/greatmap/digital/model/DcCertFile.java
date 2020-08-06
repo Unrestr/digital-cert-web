@@ -70,4 +70,10 @@ public class DcCertFile extends BaseModel implements Serializable {
      */
     @TableField("SCSJ")
     private Date scsj;
+
+    /**
+     * Ofd文件
+     */
+    @TableField("OFDID")
+    private String ofdid;
 }
