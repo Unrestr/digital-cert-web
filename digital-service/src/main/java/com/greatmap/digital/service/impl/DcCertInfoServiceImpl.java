@@ -374,15 +374,16 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         String qlrmc = dcRightholders.stream().map(DcRightholder::getMc).collect(Collectors.joining(","));
         //TODO 如果权利人是马能成   使用生成好的
         if (StringUtils.isNotBlank(qlrmc) && qlrmc.contains("马能成")) {
-            certFile.setWjid(certDto.getZzlx().equals(ZS) ? "5ae174297e16412699bb7ddcf4ca3c40" : "38ddd89e73524d6f80c45ac16be7fcb7");
-            certFile.setXdml(certDto.getZzlx().equals(ZS) ? "group1/M00/00/36/rBpUdV8pQU2AZi70AAwYGOoCR8c396.pdf" : "group1/M00/00/36/rBpUdV8pP2iARZjBAAMeog_MNtI708.pdf");
+            certFile.setWjid(certDto.getZzlx().equals(ZS) ? "ca167b3c0cdc4a26afaf721c6f959857" : "a57dd1cd6cfd46e8afb5063479645991");
+            certFile.setXdml(certDto.getZzlx().equals(ZS) ? "group1/M00/00/37/rBpUdV8rnxOAeab7AAwQ_VwKkyM577.pdf" : "group1/M00/00/37/rBpUdV8rna2ADLELAAMeok3PSrI233.pdf");
+            certFile.setOfdid(certDto.getZzlx().equals(ZS) ? "60c32826ef31424783a3a2984b1afa35" : "55ad685fabc34caea961de55723a64c0");
         }else {
             certFile.setWjid(fileInfo.getId());
+            certFile.setXdml(fileInfo.getFilePathUrl());
         }
 
         certFile.setWjmc(fileInfo.getFileName());
         certFile.setScsj(new Date());
-        certFile.setXdml(fileInfo.getFilePathUrl());
         certFile.setZzbh(zzbh);
         certFile.setZzmc(certDto.getZzlx().equals(ZS) ? "不动产权证书" : "不动产登记证明");
         if (certDto.getZzlx().equals(ZS)) {
