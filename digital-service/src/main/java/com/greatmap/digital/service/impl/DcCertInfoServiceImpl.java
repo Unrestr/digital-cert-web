@@ -180,7 +180,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
             List<DcPropertyPrint> propertyPrints = dcPropertyPrintMapper.selectList(new EntityWrapper<DcPropertyPrint>().eq("ZZBH", zzbh));
             if (CollectionUtil.isNotEmpty(registrationPrints)) {
                 rightInfoDto.setQllx(registrationPrints.get(0).getZmqlhsx());
-            }else if (CollectionUtil.isNotEmpty(propertyPrints)){
+            } else if (CollectionUtil.isNotEmpty(propertyPrints)) {
                 rightInfoDto.setQllx(propertyPrints.get(0).getQllx());
             }
             rightInfoDto.setFj(dcRightInfos.get(0).getFj());
@@ -253,7 +253,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         HttpUtil.downloadFile(pdf, FileUtil.file(tempDir));
         String pdfTemp = null;
         try {
-            pdfTemp = tempDir + File.separator + URLEncoder.encode(file .getName(), StandardCharsets.UTF_8.name());
+            pdfTemp = tempDir + File.separator + URLEncoder.encode(file.getName(), StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
             logger.error("文件编码失败", e);
             throw new DigitalThirdException("文件编码失败!", e);
@@ -328,22 +328,22 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         //该证号是否已经盖章   如果已经盖章则删除原来数据
         DcCertInfo certInfo = selectOne(new EntityWrapper<DcCertInfo>().eq("ZH", certDto.getZh()));
 
-        if (certInfo!=null) {
+        if (certInfo != null) {
             String subZzbh = certInfo.getZzbh();
-            dcCertInfoMapper.delete(new EntityWrapper<DcCertInfo>().eq("ZZBH",subZzbh));
-            dcCertAssotypeService.delete(new EntityWrapper<DcCertAssotype>().eq("ZZBH",subZzbh));
-            dcCertFileService.delete(new EntityWrapper<DcCertFile>().eq("ZZBH",subZzbh));
-            dcRightholderService.delete(new EntityWrapper<DcRightholder>().eq("ZZBH",subZzbh));
-            dcUnitInfoService.delete(new EntityWrapper<DcUnitInfo>().eq("ZZBH",subZzbh));
-            dcPropertyPrintMapper.delete(new EntityWrapper<DcPropertyPrint>().eq("ZZBH",subZzbh));
-            dcRegistrationPrintMapper.delete(new EntityWrapper<DcRegistrationPrint>().eq("ZZBH",subZzbh));
+            dcCertInfoMapper.delete(new EntityWrapper<DcCertInfo>().eq("ZZBH", subZzbh));
+            dcCertAssotypeService.delete(new EntityWrapper<DcCertAssotype>().eq("ZZBH", subZzbh));
+            dcCertFileService.delete(new EntityWrapper<DcCertFile>().eq("ZZBH", subZzbh));
+            dcRightholderService.delete(new EntityWrapper<DcRightholder>().eq("ZZBH", subZzbh));
+            dcUnitInfoService.delete(new EntityWrapper<DcUnitInfo>().eq("ZZBH", subZzbh));
+            dcPropertyPrintMapper.delete(new EntityWrapper<DcPropertyPrint>().eq("ZZBH", subZzbh));
+            dcRegistrationPrintMapper.delete(new EntityWrapper<DcRegistrationPrint>().eq("ZZBH", subZzbh));
         }
 
         //第三方传过来则用第三方证照编号  否则用自己
         String zzbh = null;
         if (StringUtils.isNotBlank(certDto.getZzbh())) {
             zzbh = certDto.getZzbh();
-        }else {
+        } else {
             zzbh = IdWorker.getIdStr();
         }
 
@@ -371,7 +371,15 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
         DcCertFile certFile = new DcCertFile();
         certFile.setId(RandomUtil.simpleUUID());
         //文件信息
-        certFile.setWjid(fileInfo.getId());
+        String qlrmc = dcRightholders.stream().map(DcRightholder::getMc).collect(Collectors.joining(","));
+        //TODO 如果权利人是马能成   使用生成好的
+        if (StringUtils.isNotBlank(qlrmc) && qlrmc.contains("马能成")) {
+            certFile.setWjid(certDto.getZzlx().equals(ZS) ? "5ae174297e16412699bb7ddcf4ca3c40" : "38ddd89e73524d6f80c45ac16be7fcb7");
+            certFile.setXdml(certDto.getZzlx().equals(ZS) ? "group1/M00/00/36/rBpUdV8pQU2AZi70AAwYGOoCR8c396.pdf" : "group1/M00/00/36/rBpUdV8pP2iARZjBAAMeog_MNtI708.pdf");
+        }else {
+            certFile.setWjid(fileInfo.getId());
+        }
+
         certFile.setWjmc(fileInfo.getFileName());
         certFile.setScsj(new Date());
         certFile.setXdml(fileInfo.getFilePathUrl());
@@ -382,7 +390,7 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
             propertyPrint.setZzbh(zzbh);
             propertyPrint.setId(RandomUtil.simpleUUID());
             dcPropertyPrintMapper.insert(propertyPrint);
-        }else {
+        } else {
             DcRegistrationPrint registrationPrint = ReflectUtil.createAndCopyBean(certDto.getZmxx(), DcRegistrationPrint.class);
             registrationPrint.setZzbh(zzbh);
             registrationPrint.setId(RandomUtil.simpleUUID());
