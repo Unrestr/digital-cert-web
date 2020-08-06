@@ -94,7 +94,6 @@ public class DcCertSealRuleController extends BaseController {
     @ApiOperation("添加证书签章对应关系")
     @PostMapping("addCertSealTempalte")
     public RestResult addCertSealTempalte(@ApiParam(value = "签章规则名称") @RequestParam(value = "qzgzmc") String qzgzmc,
-                                          @ApiParam(value = "签章规则ID") @RequestParam(value = "qzgzid") String qzgzid,
                                           @ApiParam(value = "证照名称") @RequestParam(value = "zzmc") String zzmc,
                                           @ApiParam(value = "证照类型") @RequestParam(value = "zzlx") String zzlx,
                                           @ApiParam(value = "是否注销章") @RequestParam(value = "sfzxz") Integer sfzxz,
@@ -102,7 +101,7 @@ public class DcCertSealRuleController extends BaseController {
                                           @ApiParam(value = "区县代码") @RequestParam(value = "qxdm") String qxdm,
                                           @ApiParam(value = "区县名称") @RequestParam(value = "qxmc") String qxmc) {
         RestResult restResult = renderSuccess();
-        restResult.setData(dcCertSealRuleService.addCertSealTemplate(qzgzmc, qzgzid, zzmc, zzlx, sfzxz,mbbs, qxdm,qxmc));
+        restResult.setData(dcCertSealRuleService.addCertSealTemplate(qzgzmc, zzmc, zzlx, sfzxz,mbbs, qxdm,qxmc));
         return renderSuccess();
     }
 

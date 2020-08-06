@@ -113,14 +113,18 @@ public class DcCertSealRuleServiceImpl extends ServiceImpl<DcCertSealRuleMapper,
      * 添加证书签章对应关系
      *
      * @param qzgzmc
-     * @param qzgzid
      * @param zzmc
      * @param zzlx
      * @param sfzxz
      * @param qxdm
      */
     @Override
-    public boolean addCertSealTemplate(String qzgzmc, String qzgzid, String zzmc, String zzlx, Integer sfzxz,String mbbs, String qxdm, String qxmc) {
+    public boolean addCertSealTemplate(String qzgzmc, String zzmc, String zzlx, Integer sfzxz,String mbbs, String qxdm, String qxmc) {
+        DcCertSealRule certSealRule = selectOne(new EntityWrapper<DcCertSealRule>().eq("ZZMC", zzmc).eq("QXDM", qxdm).eq("SFZXZ", sfzxz));
+        if (certSealRule==null) {
+            throw new DigitalException("无法获取规则id");
+        }
+        String qzgzid = certSealRule.getQzgzid();
         Integer zt = 1;
         List<DcCertSealRule> certSealRuleList = selectList(new EntityWrapper<DcCertSealRule>().eq("ZZMC", zzmc).eq("QXDM", qxdm));
         if (CollectionUtils.isNotEmpty(certSealRuleList)) {

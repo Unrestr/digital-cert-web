@@ -56,7 +56,7 @@ public interface DcCertSealRuleService extends IService<DcCertSealRule> {
      * @param qxmc
      * @return
      */
-    boolean addCertSealTemplate(String qzgzmc, String qzgzid, String zzmc, String zzlx, Integer sfzxz, String mbbs, String qxdm, String qxmc);
+    boolean addCertSealTemplate(String qzgzmc ,String zzmc, String zzlx, Integer sfzxz, String mbbs, String qxdm, String qxmc);
 
     /**
      * 删除证书签章对应关系
