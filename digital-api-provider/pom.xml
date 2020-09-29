@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.greatmap.dex</groupId>
             <artifactId>greatmap-dex-tool</artifactId>
-            <version>1.2-RELEASES</version>
+            <version>1.1-RELEASES</version>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-log4j12</artifactId>

@@ -1,0 +1,23 @@
+stages:
+  - test
+
+variables:
+  LANG: "en_US.UTF-8"
+  GIT_STRATEGY: fetch
+  TARGET_MODEL: "digital-api-provider,digital-server"
+
+#编译阶段
+build_test:
+  script:
+    - "bash -x /data/git-runner/git_runner_server.sh"
+  when: on_success
+  only:
+    - xj_pdf_version
+  allow_failure: false
+  stage: test
+
+
+
+
+
+

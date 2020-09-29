@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 58090
+  port: 8085
   servlet:
     context-path: /digital-server
 
@@ -50,18 +50,18 @@ temp:
   path: D:/temp/digitalcertificate
 
 wcf:
-  wcfServer: 59.196.230.135:8966
+  wcfServer: 33.89.41.77:8099
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory: E:/print
+  tempDirectory: E:/DZZZXT/print
   relativePath: digital
 
 ftp:
-  host: ftp://59.196.230.152:38333
+  host: ftp://33.89.41.77:38333
   user: FTP
   psw: FTP
-  http: http://59.196.230.135:8089/ftpdirectory
+  http: http://33.89.41.77:8080/ftpdirectory
 
-tempDirectory: D:/temp/tempDirectory
+tempDirectory: E:\DZZZXT\temp\digitalcertificate
 
 # mysql连接池配置
 spring:
@@ -70,10 +70,10 @@ spring:
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@59.196.230.152:1521/orcl
+    url: jdbc:oracle:thin:@33.89.41.77:1521/orcl
     driver-class-name: oracle.jdbc.OracleDriver
-    username: dzzz
-    password: dzzz
+    username: DZ
+    password: DZ
     druid:
       ##初始化连接数
       initialSize: 1
@@ -124,8 +124,8 @@ spring:
         allow: null
         deny: null
   redis:
-    host: 59.196.230.145
-    port: 8088
+    host: 33.89.41.77
+    port: 6379
     timeout: 10000
     jedis:
       pool:
@@ -142,17 +142,17 @@ dubbo:
     name: digital-server
   registries:
     digital:
-      address: 59.196.230.145:8087
+      address: 33.89.41.77:2181
       protocol: zookeeper
       check: false
       id: gaism
     fms:
-      address: 59.196.230.135:2182
+      address: 33.89.41.77:2181
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address: 59.196.230.145:8087
+      address: 33.89.41.77:2181
       protocol: zookeeper
       check: false
       id: uums

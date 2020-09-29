@@ -15,10 +15,10 @@ public class DcDexHttpServer {
     @Bean
     public DexHttpServer dexHttpServer(@Value("${dex.dcPublicKey}") String dcPublicKey,
                                        @Value("${dex.dcPrivateKey}") String dcPrivateKey,
-                                       @Value("${dex.fetchPublicKeyUrl}") String fetchPublicKeyUrl,
-                                       @Value("${dex.refreshPublicKey}") boolean refreshPublicKey
-                                       /*@Value("${dex.mapParams}") Map<String,String> mapParams*/){
-        DexEncryptSm2 dexEncryptSm2 = new DexEncryptSm2(dcPublicKey,dcPrivateKey,refreshPublicKey,null,fetchPublicKeyUrl);
+                                       @Value("${dex.clientSide}") String clientSidePublicKeyUrl,
+                                       @Value("${dex.serverSide}") String serverSidePublicKey,
+                                       @Value("${dex.refreshPublicKey}") String refreshPublicKey){
+        DexEncryptSm2 dexEncryptSm2 = new DexEncryptSm2(dcPublicKey,dcPrivateKey,clientSidePublicKeyUrl,serverSidePublicKey,Boolean.valueOf(refreshPublicKey));
         DexHttpServer dexHttpServer = new DexHttpServer();
         dexHttpServer.setDexEncrypt(dexEncryptSm2);
         return dexHttpServer;

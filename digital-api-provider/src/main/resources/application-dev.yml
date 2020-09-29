@@ -122,7 +122,7 @@ dubbo:
       #address: 192.168.1.98:2190
       #address: 192.168.5.233:2181
       #address: 192.168.5.34:2181
-      address: 192.168.5.222:2181
+      address: localhost:2181
       protocol: zookeeper
       check: false
       id: fms
@@ -168,7 +168,8 @@ tempDirectory: /data/FTP/work/print
 dex:
   dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
   dcPrivateKey: alwMqjVcfSKyQ4PzRzO2KizDcyGVWo5iD3xPwCcdo1s=
+  serverSide: http://33.89.41.69:8081/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
+  clientSide: http://33.89.41.69:8081/dsp-register-server/dspRegisterService/proxyService/getReceiverPublicSecret
   refreshPublicKey: false
-  fetchPublicKeyUrl: http://wh.greatmap.com.cn:8013/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
   mapParams:
-    senderID: WSXXBBDCCS2020528
+    senderID: XGSDZZZXT2020815
