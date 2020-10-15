@@ -70,7 +70,7 @@ spring:
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@33.89.41.71:1521/orcl
+    url: jdbc:oracle:thin:@33.89.41.71:1521/database
     driver-class-name: oracle.jdbc.OracleDriver
     username: DZ
     password: DZDZ
