@@ -25,7 +25,7 @@ mybatis-plus:
       #逻辑删除配置
       logic-delete-value: 0
       logic-not-delete-value: 1
-      db-type: mysql
+      db-type: oracle
     refresh: true
     refresh-mapper: true
   configuration:
@@ -53,10 +53,10 @@ spring:
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@33.89.41.77:1521/orcl
+    url: jdbc:oracle:thin:@33.89.41.71:1521/orcl
     driver-class-name: oracle.jdbc.OracleDriver
     username: DZ
-    password: DZ
+    password: DZDZ
     druid:
       ##初始化连接数
       initialSize: 1
@@ -114,17 +114,17 @@ dubbo:
     name: digital-provider
   registries:
     digital:
-      address:  33.89.41.77:2181
+      address:  33.89.41.62:2181
       protocol: zookeeper
       check: false
       id: dc
     fms:
-      address:  33.89.41.77:2181
+      address:  33.89.41.62:2181
       protocol: zookeeper
       check: false
       id: fms
     uums:
-      address:  33.89.41.77:2181
+      address:  33.89.41.62:2181
       protocol: zookeeper
       check: false
       id: uums
@@ -145,18 +145,18 @@ sign:
     http: http://59.196.229.35:8080/hbcaess/rest/
 
 wcf:
-  wcfServer: 33.89.41.77:8099
+  wcfServer: 33.89.41.62:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory: E:/DZZZXT/print
+  tempDirectory: D:/DZZZXT/print
   relativePath: digital
 
 ftp:
-  host: 33.89.41.77:38333
+  host: 33.89.41.62:38333
   user: FTP
   psw: FTP
-  http: http://33.89.41.77:8080/ftpdirectory
+  http: http://33.89.41.62:8080/ftpdirectory
 
-tempDirectory: E:\DZZZXT\temp\digitalcertificate
+tempDirectory: D:\DZZZXT\temp\digitalcertificate
 
 dex:
   dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
@@ -165,4 +165,4 @@ dex:
   clientSide: http://33.89.41.69:8081/dsp-register-server/dspRegisterService/proxyService/getReceiverPublicSecret
   refreshPublicKey: false
   mapParams:
-    senderID: XGSDZZZXT2020815
+    senderID: XJDZZZXT20201014
