@@ -173,6 +173,26 @@
         可以包含零个或多个元素，标识这个appender将会添加到这个logger。
     -->
 
+    <!-- uat环境-->
+    <springProfile name="uat">
+        <root level="info">
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+        <root level="error">
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+        <root level="debug">
+            <appender-ref ref="DEBUG_FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="WARN_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
+        </root>
+    </springProfile>
+
+
     <!-- 正式环境-->
     <springProfile name="prod">
         <root level="info">
