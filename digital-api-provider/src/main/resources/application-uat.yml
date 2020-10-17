@@ -142,7 +142,7 @@ logging:
 sign:
   ca: HBCA
   hbca:
-    http: http://59.196.229.35:8080/hbcaess/rest/
+    http: http://33.89.41.73:8081/hbcaess/rest/
 
 wcf:
   wcfServer: 33.89.41.62:9090
