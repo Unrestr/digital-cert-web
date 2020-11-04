@@ -165,7 +165,7 @@ public class RestApi extends BaseController {
 
     @ApiOperation("电子证照查询EX")
     @GetMapping("queryCertificateListEx")
-    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object queryCertificateListEx(@ApiParam(value = "权利人名称") @RequestParam(required = false) String qlrmc,
                                          @ApiParam(value = "权利人证件号") @RequestParam(required = false) String qlrzjh,
                                          @ApiParam(value = "证号") @RequestParam(required = false) String zh) {

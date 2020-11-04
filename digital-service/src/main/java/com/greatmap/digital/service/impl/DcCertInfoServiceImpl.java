@@ -221,10 +221,10 @@ public class DcCertInfoServiceImpl extends ServiceImpl<DcCertInfoMapper, DcCertI
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     @DcLog(operateType = "生成证照")
     public Map<String, String> addCertificate(CertDto certDto, String ip, String sljg, String zh, String yhm) {
         //获取模板标识Code
+        logger.info("进入生成证照");
         DcCertTemplate certTemplate = dcCertTemplateService.selectOne(new EntityWrapper<DcCertTemplate>().eq("QXDM", certDto.getQxdm()).eq("ZZMC", certDto.getZzmc()));
         //签章规则
         DcCertSealRule sealRule = dcCertSealRuleService.selectOne(new EntityWrapper<DcCertSealRule>().eq("QXDM", certDto.getQxdm()).eq("ZZMC", certDto.getZzmc()).eq("ZT", "1"));

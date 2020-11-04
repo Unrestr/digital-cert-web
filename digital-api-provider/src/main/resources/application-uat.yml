@@ -156,13 +156,13 @@ ftp:
   psw: FTP
   http: http://33.89.41.62:8080/ftpdirectory
 
-tempDirectory: D:\DZZZXT\temp\digitalcertificate
+tempDirectory: D:/DZZZXT/temp/digitalcertificate
 
 dex:
-  dcPublicKey: AlLQTp69g6972MpXWqNjJZqYqqEs7oQIV7CBgeXTx+Ar
+  dcPublicKey:
   dcPrivateKey: alwMqjVcfSKyQ4PzRzO2KizDcyGVWo5iD3xPwCcdo1s=
   serverSide: http://33.89.41.69:8081/dsp-register-server/dspRegisterService/proxyService/getSenderPublicSecret
   clientSide: http://33.89.41.69:8081/dsp-register-server/dspRegisterService/proxyService/getReceiverPublicSecret
-  refreshPublicKey: false
+  refreshPublicKey: true
   mapParams:
     senderID: XJDZZZXT20201014

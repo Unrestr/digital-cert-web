@@ -46,8 +46,6 @@ management:
       base-path: /actuator
 
 
-temp:
-  path: D:\DZZZXT\temp\digitalcertificate
 
 wcf:
   wcfServer: 33.89.41.62:9090
@@ -61,7 +59,7 @@ ftp:
   psw: FTP
   http: http://33.89.41.62:8080/ftpdirectory
 
-tempDirectory: D:\DZZZXT\temp\digitalcertificate
+tempDirectory: D:/DZZZXT/temp/digitalcertificate
 
 # mysql连接池配置
 spring:
