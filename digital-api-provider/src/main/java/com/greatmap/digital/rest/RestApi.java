@@ -54,7 +54,7 @@ public class RestApi extends BaseController {
      */
     @PostMapping("addPropertyCertificate")
     @ApiOperation("新增证书签章")
-    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object addPropertyCertificate(@ApiParam("传入参数") @RequestBody String params) {
            if (StringUtils.isBlank(params)) {
             throw new DigitalThirdException("生成证书失败,传入信息为空。");
@@ -85,7 +85,7 @@ public class RestApi extends BaseController {
 
     @PostMapping("addRegistrationCertificate")
     @ApiOperation("新增证明签章")
-    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object addRegistrationCertificate(@ApiParam("传入参数") @RequestBody String params) {
         if (StringUtils.isBlank(params)) {
             throw new DigitalThirdException("生成证书失败,传入信息为空。");
@@ -116,7 +116,7 @@ public class RestApi extends BaseController {
 
     @ApiOperation("验证数字证书")
     @PostMapping(value = "verify")
-    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object verifyCertificate(@ApiParam("传入参数") @RequestBody String params) {
         Map<String, String> oneWindowParam = JSON.parseObject(params, new TypeReference<Map<String, String>>() {});
         List<DcRequestDto> dcRequestDtos = JSONObject.parseArray(oneWindowParam.get("data"), DcRequestDto.class);
@@ -136,7 +136,7 @@ public class RestApi extends BaseController {
 
     @ApiOperation("下载电子证书")
     @PostMapping("download")
-    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object download(@ApiParam("传入参数") @RequestBody String params) {
         Map<String, String> oneWindowParam = JSON.parseObject(params, new TypeReference<Map<String, String>>() {});
         List<DcRequestDto> dcRequestDtos = JSONObject.parseArray(oneWindowParam.get("data"), DcRequestDto.class);
@@ -151,7 +151,7 @@ public class RestApi extends BaseController {
 
     @ApiOperation("电子证照查询")
     @PostMapping("queryCertificateList")
-    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object queryCertificateList(@ApiParam("传入参数") @RequestBody String params) {
         Map<String, String> oneWindowParam = JSON.parseObject(params, new TypeReference<Map<String, String>>() {});
         List<DcRequestDto> dcRequestDtos = JSONObject.parseArray(oneWindowParam.get("data"), DcRequestDto.class);
@@ -165,7 +165,7 @@ public class RestApi extends BaseController {
 
     @ApiOperation("电子证照查询EX")
     @GetMapping("queryCertificateListEx")
-    @ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
+    //@ResolvedDexParams(name = "dexHttpServer", validate = "paramsValidate")
     public Object queryCertificateListEx(@ApiParam(value = "权利人名称") @RequestParam(required = false) String qlrmc,
                                          @ApiParam(value = "权利人证件号") @RequestParam(required = false) String qlrzjh,
                                          @ApiParam(value = "证号") @RequestParam(required = false) String zh) {
