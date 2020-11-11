@@ -46,22 +46,20 @@ management:
       base-path: /actuator
 
 
-temp:
-  path: E:/temp/digitalcertificate
 
 wcf:
-  wcfServer: 192.168.5.34:9090
+  wcfServer: 39.98.176.209:9090
   estatePrintUrl: /MapFunService/EstatePrint
-  tempDirectory  : C:/FTP/work/print
+  tempDirectory   /data/FTP/work/print
   relativePath: estate/documents/register
 
 ftp:
   host: ftp://192.168.5.222:38333
   user: ftp
   psw: ftp
-  http: http://192.168.5.34:18080/ftpdirectory
+  http: http://39.98.176.209:8090/print
 
-tempDirectory: C:/FTP/work/print
+tempDirectory: /FTP/work/print
 
 # mysql连接池配置
 spring:
@@ -170,7 +168,7 @@ logging:
 sign:
   ca: HBCA
   hbca:
-    http: http://221.232.224.75:8880/hbcaess/rest/
+    http: http://61.183.191.94:8880/hbcaess/rest/
   sxca:
     http: http://117.32.132.78:19000/cloudsign/resource/rest/v1/shared/
 
